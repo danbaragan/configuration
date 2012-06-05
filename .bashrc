@@ -111,13 +111,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-ulimit -c unlimited
-
-export PATH="${HOME}/bin:${PATH}"
-export CVSEDITOR="/usr/bin/vim"
-export CVSROOT=":pserver:daniel-baragan@manga:/home/cvs"
-export EDITOR="/usr/bin/vim"
-export VISUAL="/usr/bin/vim"
-export DISPLAY="10.32.0.122:0"
-PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
-'
+if [ -f ~/.bashLocalSettings ]; then
+	. ~/.bashLocalSettings
+fi

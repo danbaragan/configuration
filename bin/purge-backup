@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+usage() {
+		echo "`basename $1` removes *~ vim backup files in current directory/ directory provided"
+		echo "Usage:"
+		echo -e "\t`basename $1` [dir]"
+}
+
+if [ "$1" == "--help" -o "$1" == "-h" ]; then
+	usage $0
+	exit 0
+fi
+
+if [ -n "$1" ]; then
+	dir="$*"
+else
+	dir="."
+fi
+
+echo Purging "*~" regular files in $dir
+find $dir -type f -name '*~' -delete || usage $0

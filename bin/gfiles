@@ -8,7 +8,7 @@ from stat import *
 g_reg = r''
 g_filePat = r''
 g_includeAll = False 
-g_ignoreCase = False
+g_caseFlag = 0
 
 g_Col_Reset = '\x1b[m\x1b[K'
 g_Col_MagentaStart = '\x1b[35m\x1b[K'
@@ -55,7 +55,7 @@ def processDir(top, searcher):
       processDir ( path, searcher )
     elif S_ISREG ( mode ) and re.search ( g_filePat, f ):
       global g_includeAll, g_excludeFilesPattern
-      if g_includeAll or not re.search( g_excludeFilesPattern, f, re.I ):
+      if g_includeAll or not re.search( g_excludeFilesPattern, f, re.IGNORECASE ):
         searcher ( path )
 
 def searchFile(path):
@@ -77,7 +77,7 @@ def searchFile(path):
     # TODO: this should be done using findall and colorize all matches
     # but the different result type between one (group) and (more)(groups) annoys me...
     # (one) group should have been a tuple of one instead of a string
-    match = re.search( g_reg, line )
+    match = re.search( g_reg, line, g_caseFlag )
     if match:
       if g_isTty:
         matchStart = line.find(match.group(0))
@@ -125,6 +125,8 @@ def main(av):
   dirs = []
   searcher = searchFile
 
+  global g_includeAll, g_caseFlag
+
   iterArgs = iter(av)
   saveMatch = DataHolder(name='match')
   for arg in iterArgs:
@@ -145,15 +147,14 @@ def main(av):
     elif re.search( r'^-I|^--includeall', arg ):
       g_includeAll = True
     elif re.search( r'^-i|^--insensitive', arg ):
-      g_ignoreCase = True
+      g_caseFlag = re.IGNORECASE
     elif re.search ( r'^-h|^--help', arg ):
       Usage()
       sys.exit(0)
     else:
       dirs.append ( arg )
     
-  global g_reg
-  global g_filePat
+  global g_reg, g_filePat
   
   if not reg :
     Usage()

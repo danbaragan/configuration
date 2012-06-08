@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/home/daniel-baragan/tmp/axtls/axTLS'
-let g:netrw_dirhist_2='/home/daniel-baragan/tmp/axtls/axTLS/_stage'
-let g:netrw_dirhist_3='/home/daniel-baragan/tmp/axtls/axTLS'
-let g:netrw_dirhist_4='/home/daniel-baragan/work/cb-head/chainbuilder/packages/mini-httpd/1.19/patches'
-let g:netrw_dirhist_5='/home/daniel-baragan/.vim'
-let g:netrw_dirhist_6='/home/daniel-baragan/.vim/after'

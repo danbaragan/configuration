@@ -16,7 +16,7 @@
 !.vim/scripts.vim
 !.vim/ftdetect
 !.vim/ftdetect/git-is-diff.vim
-!.vim/.netrwhist
+#!.vim/.netrwhist
 !.vim/doc
 !.vim/doc/MultipleSearch.txt
 !.vim/doc/tags

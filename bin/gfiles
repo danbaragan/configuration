@@ -50,7 +50,11 @@ class DataHolder(object):
 def processDir(top, searcher):
   for f in os.listdir(top):
     path = os.path.join ( top, f )
-    mode = os.stat( path ).st_mode
+    try:
+      mode = os.stat( path ).st_mode
+    except OSError, why:
+      sys.stderr.write( why.filename + ': ' + why.strerror +'\n' )
+      continue
     if S_ISDIR ( mode ):
       processDir ( path, searcher )
     elif S_ISREG ( mode ) and re.search ( g_filePat, f ):

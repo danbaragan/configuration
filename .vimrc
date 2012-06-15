@@ -85,10 +85,15 @@ set wmh=0
 "set fc+=r
 map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
+map! <C-J> <esc><C-W>j<C-W>_
+map! <C-K> <esc><C-W>k<C-W>_
 au BufNewFile,BufRead * exe "normal \<C-J>\<C-K>"
 
 map <C-N> :tabp<ENTER>
 map <C-M> :tabn<ENTER>
+"inoremap <C-N> <esc>:tabp<ENTER>
+"inoremap <C-M> <esc>:tabn<ENTER>
+"inoremap <enter> <enter>
 
 " Folding
 set foldmethod=marker

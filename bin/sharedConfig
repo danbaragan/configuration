@@ -1,0 +1,66 @@
+#!/usr/bin/env python
+
+import sys
+import subprocess, os, os.path
+
+
+# TODO: this should be based on something better than .gitignore. like really walking those dirs
+
+def diff(av):
+  if len( av ) < 1:
+    print "Provide configuration repo directory."
+    sys.exit(1)
+
+  res = open("config.patch", "a")
+  dst = os.environ[ 'HOME' ]
+  src = os.path.abspath(av[0])
+
+  # TODO: factor this out in a generator of dst, src which you diff or link
+  for line in open( os.path.join( src, ".gitignore" ) ):
+    line = line.strip()
+    if not line or line[0] == '#' or line[0] != '!': continue
+    repo_filename = os.path.join( src, line[1:] )
+    if os.path.isdir( repo_filename ): continue
+    home_filename = os.path.join( dst, line[1:] )
+    print "diffing:", "diff", "-wu", home_filename, repo_filename
+    subprocess.call(["diff", "-wru", home_filename, repo_filename ], stdout=res )
+
+def link(av):
+  if len( av ) < 1:
+    print "Provide configuration repo directory."
+    sys.exit(1)
+
+  dst = os.environ[ 'HOME' ]
+  src = os.path.abspath(av[0])
+
+  for line in open( os.path.join( src, ".gitignore" ) ):
+    line = line.strip()
+    if not line or line[0] == '#' or line[0] != '!': continue
+    repo_filename = os.path.join( src, line[1:] )
+    if os.path.isdir( repo_filename ): continue
+    home_filename = os.path.join( dst, line[1:] )
+    print "linking: ", home_filename, "to ", repo_filename, '.',
+    answer = raw_input("Are you sure (y/n) ?")
+    if answer != 'y': continue
+    if os.path.exists( repo_filename ):
+      if os.path.exists( home_filename ): os.remove( home_filename )
+      os.link( repo_filename, home_filename )
+    else:
+      print repo_filename, "not found. Skipping..."
+
+def main(av):
+  if len( av ) < 1:
+    print "Provide a command"
+    sys.exit(1)
+
+  if av[0] == 'diff':
+    del av[0]
+    diff(av)
+  elif av[0] == 'link':
+    del av[0]
+    link(av)
+
+
+if __name__ == "__main__":
+  main(sys.argv[1:])
+

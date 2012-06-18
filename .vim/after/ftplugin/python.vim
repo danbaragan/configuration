@@ -1,5 +1,6 @@
-setl expandtab
-setl sw=2
-setl softtabstop=2
-setl nosi
-setl noai
+setlocal sw=2
+setlocal ts=2
+setlocal st=2
+setlocal expandtab
+setlocal noai
+"setlocal nosi

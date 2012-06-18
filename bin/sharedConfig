@@ -1,10 +1,28 @@
 #!/usr/bin/env python
 
 import sys
-import subprocess, os, os.path
+import subprocess, os, os.path, stat
 
 
 # TODO: this should be based on something better than .gitignore. like really walking those dirs
+
+def walk_dirs( path ):
+  files = os.listdir( path )
+
+  for name in files:
+    name = os.path.join( path, name )
+    details = os.stat( name )
+
+    if stat.S_ISDIR( details.st_mode ):
+      if os.path.basename( name ) == '.git':
+        continue
+      for innerName, innerDetails in walk_dirs( name ):
+        yield innerName, innerDetails
+    if stat.S_ISREG( details.st_mode ):
+      if name.endswith( ('~','.swp') ): continue
+      yield name, details
+
+
 
 def diff(av):
   if len( av ) < 1:
@@ -14,7 +32,9 @@ def diff(av):
   res = open("config.patch", "a")
   dst = os.environ[ 'HOME' ]
   src = os.path.abspath(av[0])
+  print dst, src
 
+  ''' old .gitignore method
   # TODO: factor this out in a generator of dst, src which you diff or link
   for line in open( os.path.join( src, ".gitignore" ) ):
     line = line.strip()
@@ -24,6 +44,12 @@ def diff(av):
     home_filename = os.path.join( dst, line[1:] )
     print "diffing:", "diff", "-wu", home_filename, repo_filename
     subprocess.call(["diff", "-wru", home_filename, repo_filename ], stdout=res )
+  '''
+  for repo_filename, details in walk_dirs( src ):
+    home_filename = os.path.join( dst, repo_filename[len(src)+1:] )
+    print "diffing:", "diff", "-wu", home_filename, repo_filename
+    subprocess.call(["diff", "-wru", home_filename, repo_filename ], stdout=res )
+
 
 def link(av):
   if len( av ) < 1:
@@ -33,6 +59,7 @@ def link(av):
   dst = os.environ[ 'HOME' ]
   src = os.path.abspath(av[0])
 
+  '''
   for line in open( os.path.join( src, ".gitignore" ) ):
     line = line.strip()
     if not line or line[0] == '#' or line[0] != '!': continue
@@ -47,6 +74,20 @@ def link(av):
       os.link( repo_filename, home_filename )
     else:
       print repo_filename, "not found. Skipping..."
+  '''
+  for repo_filename, details in walk_dirs( src ):
+    home_filename = os.path.join( dst, repo_filename[len(src)+1:] )
+    print "linking: ", home_filename, "to ", repo_filename, '.',
+    answer = raw_input("Are you sure? Link, reverse link, unlink repo file (y/r/d/n) ?")
+    if answer == 'y':
+      if os.path.exists( home_filename ): os.remove( home_filename )
+      os.link( repo_filename, home_filename )
+    elif answer == 'r':
+      os.remove( repo_filename )
+      os.link( home_filename, repo_filename )
+    elif answer == 'd':
+      os.remove( repo_filename )
+
 
 def main(av):
   if len( av ) < 1:

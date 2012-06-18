@@ -50,9 +50,9 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-	PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;        34m\]\w\n--- \$\[\033[00m\] '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\n--- \$\[\033[00m\] '
 else
-	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\n---\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\n---\$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -77,19 +77,15 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# some more` ls aliases
+# some more ls aliases
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -1'
 alias apt=aptitude
-alias apt-get=aptitude
-# this makes things actually worse because u end up using rm -f as a regular habbit.
-#alias rm='rm -i'
-#alias mv='mv -i'
-#alias cp='cp -i'
-alias df='df -Th'
-alias p='ps -eLf'
 
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -100,15 +96,15 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-if [ -f ~/.bash-myfunctions ]; then
-	. ~/.bash-myfunctions
-fi
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
+fi
+
+if [ -f ~/.bash-myfunctions ]; then
+	. ~/.bash-myfunctions
 fi
 
 if [ -f ~/.bashLocalSettings ]; then

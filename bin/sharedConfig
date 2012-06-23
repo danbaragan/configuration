@@ -1,105 +1,142 @@
 #!/usr/bin/env python
 
 import sys
-import subprocess, os, os.path, stat
+import subprocess, os, os.path, stat, shutil
+import re
 
 
-# TODO: this should be based on something better than .gitignore. like really walking those dirs
+g_exclude_filenames = ('~','.swp')
+g_repo_dir = None
+g_home_dir = os.environ[ 'HOME' ]
+g_independent_files = None
 
-def walk_dirs( path ):
-  files = os.listdir( path )
+def walk_dirs( repo_path, action, quiet = False ):
+  global g_home_dir
+  repo_path = os.path.abspath( repo_path )
+  files = os.listdir( repo_path )
 
   for name in files:
-    name = os.path.join( path, name )
+    name = os.path.join( repo_path, name )
     details = os.stat( name )
 
     if stat.S_ISDIR( details.st_mode ):
       if os.path.basename( name ) == '.git':
         continue
-      for innerName, innerDetails in walk_dirs( name ):
-        yield innerName, innerDetails
+      walk_dirs( name, action, quiet )
     if stat.S_ISREG( details.st_mode ):
-      if name.endswith( ('~','.swp') ): continue
-      yield name, details
+      global g_exclude_filenames, g_repo_dir
+      if name.endswith( g_exclude_filenames ): continue
+      home_path = os.path.join( g_home_dir, name[len(g_repo_dir)+1:] )
+      action( name, home_path, quiet )
 
 
+def diff( src, dst, quiet ):
 
-def diff(av):
-  if len( av ) < 1:
-    print "Provide configuration repo directory."
-    sys.exit(1)
+  global g_repo_dir, g_independent_files
 
-  res = open("config.patch", "a")
-  dst = os.environ[ 'HOME' ]
-  src = os.path.abspath(av[0])
-  print dst, src
-
-  ''' old .gitignore method
-  # TODO: factor this out in a generator of dst, src which you diff or link
-  for line in open( os.path.join( src, ".gitignore" ) ):
-    line = line.strip()
-    if not line or line[0] == '#' or line[0] != '!': continue
-    repo_filename = os.path.join( src, line[1:] )
-    if os.path.isdir( repo_filename ): continue
-    home_filename = os.path.join( dst, line[1:] )
-    print "diffing:", "diff", "-wu", home_filename, repo_filename
-    subprocess.call(["diff", "-wru", home_filename, repo_filename ], stdout=res )
-  '''
-  for repo_filename, details in walk_dirs( src ):
-    home_filename = os.path.join( dst, repo_filename[len(src)+1:] )
-    print "diffing:", "diff", "-wu", home_filename, repo_filename
-    subprocess.call(["diff", "-wru", home_filename, repo_filename ], stdout=res )
+  # don't diff independent files
+  if src[len(g_repo_dir)+1:] in g_independent_files and g_independent_files[ src[len(g_repo_dir)+1:] ]:
+    return
+  if not quiet:
+    sys.stderr.write( "diffing: " + "diff " + "-wu " + dst + " " + src + '\n' )
+  subprocess.call(["diff", "-wu", dst, src ] )
 
 
-def link(av):
-  if len( av ) < 1:
-    print "Provide configuration repo directory."
-    sys.exit(1)
+def link( src, dst, quiet ):
+  if not quiet:
+    print "linking: ", dst, "to ", src, '.',
+    answer = raw_input("Are you sure? Link, reverse link, break the linkage, delete repo file (y/r/u/d/n) ?")
+  else:
+    answer = 'y'
 
-  dst = os.environ[ 'HOME' ]
-  src = os.path.abspath(av[0])
+  global g_independent_files, g_home_dir
 
-  '''
-  for line in open( os.path.join( src, ".gitignore" ) ):
-    line = line.strip()
-    if not line or line[0] == '#' or line[0] != '!': continue
-    repo_filename = os.path.join( src, line[1:] )
-    if os.path.isdir( repo_filename ): continue
-    home_filename = os.path.join( dst, line[1:] )
-    print "linking: ", home_filename, "to ", repo_filename, '.',
-    answer = raw_input("Are you sure (y/n) ?")
-    if answer != 'y': continue
-    if os.path.exists( repo_filename ):
-      if os.path.exists( home_filename ): os.remove( home_filename )
-      os.link( repo_filename, home_filename )
-    else:
-      print repo_filename, "not found. Skipping..."
-  '''
-  for repo_filename, details in walk_dirs( src ):
-    home_filename = os.path.join( dst, repo_filename[len(src)+1:] )
-    print "linking: ", home_filename, "to ", repo_filename, '.',
-    answer = raw_input("Are you sure? Link, reverse link, unlink repo file (y/r/d/n) ?")
-    if answer == 'y':
-      if os.path.exists( home_filename ): os.remove( home_filename )
-      os.link( repo_filename, home_filename )
-    elif answer == 'r':
-      os.remove( repo_filename )
-      os.link( home_filename, repo_filename )
-    elif answer == 'd':
-      os.remove( repo_filename )
+  if answer == 'y':
+    if os.path.exists( dst ):
+      os.rename( dst, dst+".git.bak" )
+    os.link( src, dst )
+    # remove relative file name to independent files
+    g_independent_files[ dst[len(g_home_dir)+1:] ] = False
+  elif answer == 'r':
+    os.remove( src )
+    os.link( dst, src )
+    # remove relative file name to independent files
+    g_independent_files[ dst[len(g_home_dir)+1:] ] = False
+  elif answer == 'u':
+    os.remove( dst )
+    shutil.copy2( src, dst )
+    # add relative file name to independent files
+    g_independent_files[ dst[len(g_home_dir)+1:] ] = True
+  elif answer == 'd':
+    os.remove( src )
+    # remove relative file name to independent files; dst is a well formed path, even though it may not exist
+    g_independent_files[ dst[len(g_home_dir)+1:] ] = False
 
+def post_merge_relink( src, dst, quiet ):
+  global g_independent_files, g_repo_dir
+
+  # if src is not marked to be excluded
+  if src[len(g_repo_dir)+1:] in g_independent_files and g_independent_files[ src[len(g_repo_dir)+1:] ]:
+    return
+  # if src has only one hard link count
+  if os.stat( src ).st_nlink == 1:
+    link( src, dst, quiet )
+
+
+def get_independent( name='.independent_files' ):
+  global g_home_dir
+  d = {}
+  try:
+    f = open( os.path.join( g_home_dir, name ) )
+  except:
+    # it's ok if no exception list
+    return d
+
+  for line in f:
+    d[line.strip()] = True
+
+  f.close()
+  return d
+
+def save_independent( name='.independent_files' ):
+  global g_independent_files
+  # truncate
+  f = open( os.path.join( g_home_dir, name ), 'w' )
+  # leave exception uncaught - this really is exceptional
+
+  for name, keep in g_independent_files.iteritems():
+    if keep:
+      f.write(name)
+  f.close()
 
 def main(av):
   if len( av ) < 1:
     print "Provide a command"
     sys.exit(1)
 
+  if len( av ) < 2:
+    print "Provide configuration repo directory."
+    sys.exit(1)
+
+  verbose= False
+  if len( av ) >= 3:
+    if av[2] == '-v' or av[2] == '--verbose':
+      verbose = True
+
+  global g_repo_dir
+  g_repo_dir = os.path.abspath( av[1] )
+  global g_home_dir
+  global g_independent_files
+  g_independent_files = get_independent()
+
   if av[0] == 'diff':
-    del av[0]
-    diff(av)
+    walk_dirs( av[1], diff, not verbose )
   elif av[0] == 'link':
-    del av[0]
-    link(av)
+    walk_dirs( av[1], link )
+    save_independent()
+  elif av[0] == 'post-merge':
+    walk_dirs( av[1], post_merge_relink, not verbose )
+    save_independent()
 
 
 if __name__ == "__main__":

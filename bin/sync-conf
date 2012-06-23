@@ -1,0 +1,106 @@
+#!/usr/bin/env python
+'''
+Copy git local repo files from dir given as argument to the home dir if they are newer
+-r is reverse and copies the newer home matching files back in the repo
+'''
+
+import sys
+import os, os.path, stat, shutil
+import argparse
+
+g_args = None
+g_dst_dir = None
+# still check git local repo files but copy the coresponding newr home files over them
+g_OSError_fmt_str = 'Error: %d: %s: %s'
+
+def walk_dirs( path ):
+  files = os.listdir( path )
+
+  for name in files:
+    name = os.path.join( path, name )
+    details = os.stat( name )
+
+    if stat.S_ISDIR( details.st_mode ):
+      if os.path.basename( name ) == '.git':
+        continue
+      for innerName, innerDetails in walk_dirs( name ):
+        yield innerName, innerDetails
+    if stat.S_ISREG( details.st_mode ):
+      yield name, details
+
+
+def sync_files( src, srcDetails ):
+  global g_OSError_fmt_str, g_args
+  # src = home/dest/git_folder/rest/path/file
+  print g_args.destination
+  git_and_path = src[len(g_args.destination):].split(os.sep, 2)
+  print git_and_path
+  return
+  #dst = os.path.join( g_dst_dir, src[len(g_src_dir)+1:] )
+
+  try: dstDetails = os.stat( dst )
+  except OSError, badFile:
+    if g_args.reverse: return
+
+    if badFile.errno == 2:
+      # copy the src only file to dest, mkdirs?
+      if not os.access( os.path.dirname( dst ), os.F_OK ):
+        os.makedirs( os.path.dirname( dst ) )
+      print "N", dst
+      shutil.copy2( src, dst )
+      return
+    else: raise 
+
+  if g_args.reverse:
+    if srcDetails[ stat.ST_MTIME ] < dstDetails[ stat.ST_MTIME ]:
+      print "R", src
+      shutil.copy2( dst, src )
+  elif srcDetails[ stat.ST_MTIME ] > dstDetails[ stat.ST_MTIME ]:
+    print "U", dst
+    os.rename( dst, dst+".git.bak" )
+    # on windows look for file exists error and do a rm here and resync (beware of infinite loop?)
+    # copy src over dst
+    shutil.copy2( src, dst )
+
+
+def main():
+
+  global g_args
+  # add restore?
+  # add diff !
+  # add confirmation
+  argParser = argparse.ArgumentParser( description="Synchronize from git repositories directories/files, "
+      "here on named source,\nto the coresponding files from users $HOME directory.")
+  argParser.add_argument( '-r', '--reverse', action='store_const', const='True'\
+      , help="The lookup is still done by checking source directories/files but the coresponding files from home, "
+      "if newer, will be copied over to source." )
+  argParser.add_argument( '-i', '--interactive', action='store_const', const='True'\
+      , help="Ask the user for decision to make on each file being sync'd")
+  #argParser.add_argument( '-d', '--destination', default=os.environ[ 'HOME' ]\
+  #    , help="The destination directory. Default is user's $HOME dir" )
+  argParser.add_argument( 'sources', nargs='+'\
+      , help="The directories/files inside a git repo that will be sync'd with the coresponding files in $HOME\n"
+      "Please note that the git repo dir must be inside destination directory, "
+      "otherwise no correspondence between files can be found")
+  g_args = argParser.parse_args()
+  g_args.destination = os.environ[ 'HOME' ]
+
+  for src in g_args.sources:
+    src = os.path.abspath( src )
+    if not src.startswith( g_args.destination ):
+      sys.stderr.write( "Cannot guess which file to sync. %s is not a subtree of %s. Skipping...\n"\
+          % (src,g_args.destination) )
+      continue
+    srcDetails = os.stat( src )
+    if stat.S_ISREG( srcDetails.st_mode ):
+      sync_files( path, srcDetails )
+    else:
+      for name, details in walk_dirs( src ):
+        try:
+          sync_files( name, details )
+        except ( OSError, IOError ), why:
+          #print str( why )
+          print g_OSError_fmt_str % ( why.errno, why.strerror, why.filename )
+
+if __name__ == "__main__":
+  main()

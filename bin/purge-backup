@@ -2,7 +2,7 @@
 
 
 usage() {
-		echo "`basename $1` removes *~ vim backup files in current directory/ directory provided"
+		echo "`basename $1` removes *~ vim backup files in current directory OR directory provided."
 		echo "Usage:"
 		echo -e "\t`basename $1` [dir]"
 

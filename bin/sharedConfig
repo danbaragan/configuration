@@ -29,6 +29,17 @@ def walk_dirs( repo_path, action, quiet = False ):
       home_path = os.path.join( g_home_dir, name[len(g_repo_dir)+1:] )
       action( name, home_path, quiet )
 
+def areHardLinks( src, dst ):
+  try:
+    srcDetails = os.stat( src )
+    dstDetails = os.stat( dst )
+  except BaseException as e:
+    return False
+  
+  if srcDetails[ stat.ST_INO ] == dstDetails[ stat.ST_INO ]:
+    return True
+  
+  return False
 
 def diff( src, dst, quiet ):
 
@@ -53,9 +64,22 @@ def link( src, dst, quiet ):
   global g_independent_files, g_home_dir
 
   if answer == 'y':
-    if os.path.exists( dst ):
+    if not os.path.exists( os.path.dirname( dst ) ):
+      os.makedirs( os.path.dirname( dst ) )
+    elif areHardLinks( src, dst ):
+      if not quiet: print "%s and %s are already linked" % (src, dst)
+      return
+    elif os.path.exists( dst ):
       os.rename( dst, dst+".git.bak" )
-    os.link( src, dst )
+    # if it is a symlink, copy it as it is
+    if os.path.islink( src ):
+      linkto = os.readlink( src )
+      try:
+        os.symlink( linkto, dst )
+      except BaseException as e:
+        if not quiet: print e
+    else:
+      os.link( src, dst )
     # remove relative file name to independent files
     g_independent_files[ dst[len(g_home_dir)+1:] ] = False
   elif answer == 'r':

@@ -70,6 +70,7 @@ def link( src, dst, quiet ):
       if not quiet: print "%s and %s are already linked" % (src, dst)
       return
     elif os.path.exists( dst ):
+      if os.path.exists( dst+".git.bak" ): os.remove( dst+".git.bak" )
       os.rename( dst, dst+".git.bak" )
     # if it is a symlink, copy it as it is
     if os.path.islink( src ):

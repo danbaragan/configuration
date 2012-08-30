@@ -93,7 +93,7 @@ map <C-M> :tabn<ENTER>
 "inoremap <enter> <enter>
 
 " Folding
-set foldmethod=marker
+"set foldmethod=marker
 fun! ToggleFold()
 	if foldlevel('.') == 0
 		normal! l

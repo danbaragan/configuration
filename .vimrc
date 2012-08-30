@@ -93,7 +93,7 @@ map <C-M> :tabn<ENTER>
 "inoremap <enter> <enter>
 
 " Folding
-set foldmethod=marker
+"set foldmethod=marker
 fun! ToggleFold()
 	if foldlevel('.') == 0
 		normal! l
@@ -141,7 +141,7 @@ set tags+=./tags;~/AccessNode/Shared
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
-colorscheme default
+colorscheme elflord
 
 "hi Folded cterm=bold ctermfg=red ctermbg=0
 "hi StatusLine term=bold cterm=bold ctermfg=yellow ctermbg=0

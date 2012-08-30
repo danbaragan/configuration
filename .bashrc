@@ -110,3 +110,4 @@ fi
 if [ -f ~/.bashLocalSettings ]; then
 	. ~/.bashLocalSettings
 fi
+export LC_COLLATE=C

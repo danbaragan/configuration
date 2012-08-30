@@ -72,7 +72,7 @@ _do_the_grep() {
 			dir="."
     fi
 
-    exclude="\<tags\>\|\.orig\>\|\.rej\>\|[a-zA-Z0-9]~\|\.[ch]_\|\.[ch]pp_\|\.cc_\|\.svn\|/CVS/"
+    exclude="\<tags\>\|\.orig\>\|\.rej\>\|[a-zA-Z0-9]~\|\.[ch]_\|\.[ch]pp_\|\.cc_\|\.svn\|/CVS/\|\.vcx\?proj"
 #test for exclude list
     if [ -n "$5" ]; then
         exclude=${exclude}"\|$5"

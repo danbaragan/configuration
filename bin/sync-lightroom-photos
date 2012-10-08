@@ -4,13 +4,15 @@ import dirUtils
 import sys, os, os.path, shutil
 import re
 
-g_srcDir = os.path.join( dirUtils.homeDir, "Pictures/Pictures.win7/_atelier" )
-g_dstDir = os.path.join( dirUtils.homeDir, "Pictures/_atelier" )
+g_srcDir = None
+g_dstDir = None
+g_verbose = False
+g_quiet = False
 g_resultDirName = 'Result'
 g_targetedExtensions = ('.jpg')
 
-def updatePicture( win_file, src_details, quiet ):
-    global g_srcDir, g_dstDir, g_resultDirName
+def updatePicture( win_file, src_details ):
+    global g_srcDir, g_dstDir, g_resultDirName, g_verbose
     # g_srcDir/(path/to)/Result/(path/to/jpg)
     pattern = g_srcDir + os.sep+r'?' + r'(.*?)' + os.sep+r'+' + g_resultDirName + os.sep+r'+' + r'(.*$)'
     match = re.search( pattern, win_file )
@@ -33,23 +35,33 @@ def updatePicture( win_file, src_details, quiet ):
         shouldCopy = True
     # if src jpg is newer then copy over our picture
     if shouldCopy:
-        if not quiet: print "Copy:", win_file, " -> ", linux_file
+        if not g_quiet:
+            print "Copy:", win_file, " -> ", linux_file
         shutil.copyfile( win_file, linux_file )
+    elif g_verbose:
+        print win_file, " is older than ", linux_file
 
 
-def updateFromFreshResults( resultDir, stat_details, quiet ):
+def updateFromFreshResults( resultDir, stat_details ):
     global g_targetedExtensions
-    dirUtils.walk_dirs( resultDir, updatePicture, quiet, only_these_files=g_targetedExtensions )
+    dirUtils.walk_dirs( resultDir, updatePicture, only_these_files=g_targetedExtensions )
 
 def main(av):
-    global g_srcDir, g_dstDir, g_resultDirName
-    verbose = False
-    if len(av) >= 2:
-        g_srcDir = av[1]
-    if len(av) >= 3:
-        g_dstDir = av[2]
+    global g_verbose, g_quiet, g_srcDir, g_dstDir, g_resultDirName
+    for arg in av:
+        if arg=='-v' or arg=='--verbose': g_verbose = True
+        elif arg=='-q' or arg=='--quiet': g_quiet = True
+        elif not g_srcDir: g_srcDir = arg
+        elif not g_dstDir: g_dstDir = arg
+    if not g_srcDir:
+        g_srcDir = os.path.join( dirUtils.homeDir, "Pictures/Pictures.win7/_atelier" )
+    if not g_dstDir:
+        g_dstDir = os.path.join( dirUtils.homeDir, "Pictures/_atelier" )
+    if g_quiet:
+        g_verbose = False
 
-    dirUtils.walk_dirs( g_srcDir, updateFromFreshResults, quiet = not verbose, only_these_dirs=(g_resultDirName) )
+    #print g_verbose, g_quiet, g_srcDir, g_dstDir
+    dirUtils.walk_dirs( g_srcDir, updateFromFreshResults, only_these_dirs=(g_resultDirName) )
 
 if __name__ == "__main__":
-    main(sys.argv)
+    main(sys.argv[1:])

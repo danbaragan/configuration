@@ -1,0 +1,55 @@
+#!/usr/bin/env python
+
+import dirUtils
+import sys, os, os.path, shutil
+import re
+
+g_srcDir = os.path.join( dirUtils.homeDir, "Pictures/Pictures.win7/_atelier" )
+g_dstDir = os.path.join( dirUtils.homeDir, "Pictures/_atelier" )
+g_resultDirName = 'Result'
+g_targetedExtensions = ('.jpg')
+
+def updatePicture( win_file, src_details, quiet ):
+    global g_srcDir, g_dstDir, g_resultDirName
+    # g_srcDir/(path/to)/Result/(path/to/jpg)
+    pattern = g_srcDir + os.sep+r'?' + r'(.*?)' + os.sep+r'+' + g_resultDirName + os.sep+r'+' + r'(.*$)'
+    match = re.search( pattern, win_file )
+    if not match:
+        sys.stderr.write( 'Path not according to pattern: ' + win_file + ' : ' + pattern + '\n' )
+        return
+    linux_file = os.path.join( g_dstDir, match.group(1), match.group(2) )
+   
+    shouldCopy = False
+    if os.path.exists( linux_file ):
+        try:
+            linux_details = os.stat( linux_file )
+            if src_details.st_mtime > linux_details.st_mtime:
+                shouldCopy = True
+        except OSError, why:
+            sys.stderr.write( why.filename + ': ' + why.strerror +'\n' )
+    else:
+        if not os.path.exists( os.path.dirname( linux_file ) ):
+            os.makedirs( os.path.dirname( linux_file ) )
+        shouldCopy = True
+    # if src jpg is newer then copy over our picture
+    if shouldCopy:
+        if not quiet: print "Copy:", win_file, " -> ", linux_file
+        shutil.copyfile( win_file, linux_file )
+
+
+def updateFromFreshResults( resultDir, stat_details, quiet ):
+    global g_targetedExtensions
+    dirUtils.walk_dirs( resultDir, updatePicture, quiet, only_these_files=g_targetedExtensions )
+
+def main(av):
+    global g_srcDir, g_dstDir, g_resultDirName
+    verbose = False
+    if len(av) >= 2:
+        g_srcDir = av[1]
+    if len(av) >= 3:
+        g_dstDir = av[2]
+
+    dirUtils.walk_dirs( g_srcDir, updateFromFreshResults, quiet = not verbose, only_these_dirs=(g_resultDirName) )
+
+if __name__ == "__main__":
+    main(sys.argv)

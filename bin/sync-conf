@@ -103,4 +103,6 @@ def main():
           print g_OSError_fmt_str % ( why.errno, why.strerror, why.filename )
 
 if __name__ == "__main__":
-  main()
+    print "This is an abandoned experiment. Use sharedConfig instead"
+    sys.exit(1)
+    main()

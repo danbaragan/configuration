@@ -8,8 +8,11 @@
 "             for Amiga:  s:.vimrc
 "  for MS-DOS and Win32:  $VIM\_vimrc
 "           for OpenVMS:  sys$login:.vimrc
+filetype off
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
 
-" When started as "evim", evim.vim will already have done these settings.
+" When started as 'evim', evim.vim will already have done these settings.
 if v:progname =~? "evim"
 	finish
 endif
@@ -81,16 +84,17 @@ endif " has("autocmd")
 set wmh=0
 "set fc+=r
 map <C-J> <C-W>j<C-W>_
+map <C-Down> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
+map <C-Up> <C-W>k<C-W>_
 map! <C-J> <esc><C-W>j<C-W>_
+map! <C-Down> <esc><C-W>j<C-W>_
 map! <C-K> <esc><C-W>k<C-W>_
+map! <C-Up> <esc><C-W>k<C-W>_
 au BufNewFile,BufRead * exe "normal \<C-J>\<C-K>"
 
-map <C-N> :tabp<ENTER>
-map <C-M> :tabn<ENTER>
-"inoremap <C-N> <esc>:tabp<ENTER>
-"inoremap <C-M> <esc>:tabn<ENTER>
-"inoremap <enter> <enter>
+map <C-H> :tabp<ENTER>
+map <C-L> :tabn<ENTER>
 
 " Folding
 "set foldmethod=marker
@@ -126,7 +130,7 @@ set ts=2
 set shiftwidth=2
 set softtabstop=2
 set laststatus=2
-set statusline=%<%f%=%(%h%m%r%=\ %l,%c%V\ %P%)
+set statusline=%<%f%=%(%h%m%r%=\ %{fugitive#statusline()}\ %l,%c%V\ %P%)
 set noai
 set si
 set incsearch
@@ -155,3 +159,15 @@ let g:MultipleSearchTextColorSequence="White,Black,White,Black,Black"
 
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+
+map <leader>h :GundoToggle<CR>
+map <leader>d <Plug>TaskList
+"let g:pyflakes_use_quickfix = 0
+au FileType python set omnifunc=pythoncomplete#Complete
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabClosePreviewOnPopupClose = 1
+
+map <leader>j :RopeGotoDefinition<CR>
+map <leader>r :RopeRename<CR>
+

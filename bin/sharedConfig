@@ -147,7 +147,7 @@ def save_independent( name='.repo_only_files' ):
 
     for name, keep in g_repo_only_files.iteritems():
         if keep:
-            f.write(name)
+            f.write(name + "\n")
     f.close()
 
 def main(av):

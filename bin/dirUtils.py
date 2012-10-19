@@ -9,7 +9,6 @@ def walk_dirs( top_path, action, only_these_dirs=None, except_these_dirs=None, o
     iteratable_only_these_dirs=None, iteratable_except_these_dirs=None,
     tuple_only_these_file_endings=None, tuple_except_these_file_ending=None )
     """
-    # global homeDir
     top_path = os.path.abspath( top_path )
     files = os.listdir( top_path )
 

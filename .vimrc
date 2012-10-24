@@ -161,12 +161,16 @@ let g:MultipleSearchTextColorSequence="White,Black,White,Black,Black"
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 
-map <leader>h :GundoToggle<CR>
+"map <leader>h :GundoToggle<CR>
 map <leader>d <Plug>TaskList
 "let g:pyflakes_use_quickfix = 0
 au FileType python set omnifunc=pythoncomplete#Complete
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabClosePreviewOnPopupClose = 1
+"change supertab.vim:571 to 'doautocmd supertab_preview_closed User <supertab>'
+augroup supertab_preview_closed
+	autocmd User <supertab> winc _
+augroup END
 
 map <leader>j :RopeGotoDefinition<CR>
 map <leader>r :RopeRename<CR>

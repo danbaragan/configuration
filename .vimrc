@@ -83,6 +83,7 @@ else
 endif " has("autocmd")
 set wmh=0
 "set fc+=r
+map <space> za
 map <C-J> <C-W>j<C-W>_
 map <C-Down> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
@@ -97,7 +98,7 @@ map <C-H> :tabp<ENTER>
 map <C-L> :tabn<ENTER>
 
 " Folding
-"set foldmethod=marker
+set foldmethod=marker
 fun! ToggleFold()
 	if foldlevel('.') == 0
 		normal! l

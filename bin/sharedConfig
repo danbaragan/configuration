@@ -39,10 +39,10 @@ def areHardLinks( src, dst ):
         dstDetails = os.stat( dst )
     except BaseException:
         return False
-    
+
     if srcDetails[ stat.ST_INO ] == dstDetails[ stat.ST_INO ]:
         return True
-    
+
     return False
 
 # src is the newer file in this case and we are diffing the old home dst to the new repo src

@@ -173,6 +173,9 @@ augroup supertab_preview_closed
 	autocmd User <supertab> winc _
 augroup END
 
-map <leader>j :RopeGotoDefinition<CR>
-map <leader>r :RopeRename<CR>
-
+"map <leader>j :RopeGotoDefinition<CR>
+"map <leader>r :RopeRename<CR>
+nmap <F7> :PyLint<CR>
+nmap <F8> :sign unplace *<CR>
+nmap <F9> :TagbarToggle<CR>
+let g:pymode_lint_write = 0

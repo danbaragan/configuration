@@ -23,7 +23,9 @@ git submodule add https://github.com/fs111/pydoc.vim.git bundle/pydoc
 git submodule add https://github.com/vim-scripts/TaskList.vim.git bundle/tasklist
 #git submodule add https://github.com/vim-scripts/The-NERD-tree.git bundle/nerdtree
 # not working
-git submodule add https://github.com/sontek/rope-vim.git bundle/ropevim
+#git submodule add https://github.com/sontek/rope-vim.git bundle/ropevim
+git submodule add https://github.com/majutsushi/tagbar.git bundle/tagbar
+git submodule add https://github.com/klen/python-mode.git bundle/python-mode
 git submodule init
 git submodule update
 git submodule foreach git submodule init

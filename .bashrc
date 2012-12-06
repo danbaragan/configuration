@@ -111,3 +111,4 @@ if [ -f ~/.bashLocalSettings ]; then
 	. ~/.bashLocalSettings
 fi
 export LC_COLLATE=C
+eval `dircolors -b ~/.dir_colors`

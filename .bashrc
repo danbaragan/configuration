@@ -103,8 +103,11 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-if [ -f ~/.bash-myfunctions ]; then
-	. ~/.bash-myfunctions
+if [ -f ~/.bash-ack_functions ]; then
+	. ~/.bash-ack_functions
+fi
+if [ -f ~/.bash-oldfunctions ]; then
+	. ~/.bash-oldfunctions
 fi
 
 if [ -f ~/.bashLocalSettings ]; then

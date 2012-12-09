@@ -128,7 +128,7 @@ _do_the_ack-grep() {
 		# after shift OR missing entity_type $3 is the pattern
 		#test existance of mandatory arg
 		if [ -z "$3" ]; then
-				echo "Usage (strict order!): ag[w][i] [<src type>] [<entity type>] <regex to match> [<path>] [<more_options>]"
+				echo "Usage: g[p][w][i] [fc|fp|fr|fjs|fj|fphp|fw] [c|d|f] <regex to match> [<path>...] [<more_options>]"
 				return 1
 		fi
 

@@ -179,3 +179,4 @@ nmap <F7> :PyLint<CR>
 nmap <F8> :sign unplace *<CR>
 nmap <F9> :TagbarToggle<CR>
 let g:pymode_lint_write = 0
+let g:pymode_syntax_space_errors = 0

@@ -10,7 +10,7 @@ _do_the_ack-grep() {
 		icase=""
 	fi
 	wwords="$2"
-	src_type_args=""
+	src_type_args="--all"
 	src_type=""
 	search_pattern=""
 

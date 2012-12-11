@@ -59,9 +59,9 @@ _do_the_ack-grep() {
 				case "$src_type" in
 					cc|python|ruby|php|java )
 						if [ $wwords -eq 1 ]; then
-							search_pattern='\bclass\b\s+\b'"$4"'\b'
+							search_pattern='\bclass\s+'"$4"'\b'
 						else
-							search_pattern='\bclass\b\s+[\w\d_]*'"$4"'[\w\d_]*'
+							search_pattern='\bclass\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*'
 						fi
 					 	;;
 				esac
@@ -72,23 +72,23 @@ _do_the_ack-grep() {
 				case "$src_type" in
 					cc )
 						if [ $wwords -eq 1 ]; then
-							search_pattern='^\s*#\s*define\s+'$4'\s'
+							search_pattern='^\s*#\s*define\s+'"$4"'\s'
 						else
-							search_pattern='^\s*#\s*define\s+\w?[\w\d_]*'$4'[\w\d_]*\s'
+							search_pattern='^\s*#\s*define\s+\w?[\w\d_]*'"$4"'[\w\d_]*\s'
 						fi
 						;;
 					python )
 						if [ $wwords -eq 1 ]; then
-							search_pattern='def\s+'$4':'
+							search_pattern='\bdef\s+'"$4"'\s*\('
 						else
-							search_pattern='def\s+\w?[\w\d_]*'$4'[\w\d_]*:'
+							search_pattern='\bdef\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*\s*\('
 						fi
 						;;
 					ruby )
 						if [ $wwords -eq 1 ]; then
-							search_pattern='def\s+'$4'\b'
+							search_pattern='\bdef\s+'"$4"'\b'
 						else
-							search_pattern='def\s+\w?[\w\d_]*'$4'[\w\d_]*'
+							search_pattern='\bdef\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*'
 						fi
 						;;
 				esac
@@ -99,17 +99,17 @@ _do_the_ack-grep() {
 				case "$src_type" in
 					cc|python|java|js|php )
 						if [ $wwords -eq 1 ]; then
-							search_pattern='\b'$4'\b\s*\('
+							search_pattern='\b'"$4"'\b\s*\('
 						else
-							search_pattern=$4'[\w\d_]*\s*\('
+							search_pattern="$4"'[\w\d_]*\s*\('
 						fi
 						;;
 					# ruby is tricky
 					ruby )
 						if [ $wwords -eq 1 ]; then
-							search_pattern='\b'$4'\b'
+							search_pattern='\b'"$4"'\b'
 						else
-							search_pattern=$4
+							search_pattern="$4"
 						fi
 						;;
 				esac
@@ -118,9 +118,9 @@ _do_the_ack-grep() {
 
 			* )
 				if [ $wwords -eq 1 ]; then
-					search_pattern='\b'$3'\b'
+					search_pattern='\b'"$3"'\b'
 				else
-					search_pattern=$3
+					search_pattern="$3"
 				fi
 				# don't shift; the entity_type arg is missing
 				;;
@@ -134,9 +134,9 @@ _do_the_ack-grep() {
 		fi
 
 		if [ $wwords -eq 1 ]; then
-			search_pattern='\b'$3'\b'
+			search_pattern='\b'"$3"'\b'
 		else
-			search_pattern=$3
+			search_pattern="$3"
 		fi
 	fi
 

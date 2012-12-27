@@ -48,11 +48,27 @@ if [ -n "$force_color_prompt" ]; then
 	color_prompt=
     fi
 fi
-
+White="[m[K"
+Red="[0;31m[K"
+Green="[0;32m[K"
+Yellow="[0;33mK"
+Blue="[0;34mK"
+__git_prompt_color() {
+	git_status=$(git status 2>&1)
+	if echo $git_status|grep -q -e"Not a git repository"; then
+		echo "$White"
+	elif echo $git_status|grep -q -i -e"Changes to be committed:" -e"Changes not staged for commit:" -e"untracked"; then
+		echo "$Red"
+	elif echo $git_status|grep -q -e"Your branch" -e"Your branch"; then
+		echo "$Yellow"
+	else
+		echo "$Blue"
+	fi
+}
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\n--- \$\[\033[00m\] '
+	PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w $(__git_prompt_color)$(__git_ps1 "(%s)")\[\033[01;34m\]\n--- \$\[\033[00m\] '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\n---\$ '
+	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(__git_ps1 "(%s)")\n---\$ '
 fi
 unset color_prompt force_color_prompt
 

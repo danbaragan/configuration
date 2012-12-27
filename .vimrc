@@ -9,6 +9,7 @@
 "  for MS-DOS and Win32:  $VIM\_vimrc
 "           for OpenVMS:  sys$login:.vimrc
 filetype off
+"let g:pathogen_disabled = ['supertab']
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
@@ -165,7 +166,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 "map <leader>h :GundoToggle<CR>
 map <leader>d <Plug>TaskList
 "let g:pyflakes_use_quickfix = 0
-au FileType python set omnifunc=pythoncomplete#Complete
+"au FileType python set omnifunc=pythoncomplete#Complete
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabClosePreviewOnPopupClose = 1
 "change supertab.vim:571 to 'doautocmd supertab_preview_closed User <supertab>'

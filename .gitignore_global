@@ -1,4 +1,6 @@
+*.bak
 *~
 .*.sw[pon]
+*.pyc
 tags
 .ropeproject/

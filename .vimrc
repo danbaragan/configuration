@@ -175,11 +175,11 @@ augroup END
 
 "map <leader>j :RopeGotoDefinition<CR>
 "map <leader>r :RopeRename<CR>
-nmap <F5> oimport pdb; pdb.set_trace()<esc>
-nmap <F6> oimport ipdb; ipdb.set_trace()<esc>
-nmap <F7> :PyLint<CR>
-nmap <F8> :sign unplace *<CR>
-nmap <F9> :TagbarToggle<CR>
+map <F5> oimport pdb; pdb.set_trace() ### XXX BREAKPOINT<esc>
+map <F6> oimport ipdb; ipdb.set_trace() ### XXX BREAKPOINT<esc>
+map <F7> :PyLint<CR>
+map <F8> :sign unplace *<CR>
+map <F9> :TagbarToggle<CR>
 let g:pymode_lint_write = 0
 let g:pymode_syntax_space_errors = 0
 let g:pymode_utils_whitespaces = 0 " do not remove unused whitespaces by default

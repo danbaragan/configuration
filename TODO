@@ -1,0 +1,2 @@
+~/.gitconfig:
+lxor = !sh -c 'git log --oneline --left-right --boundary $1' -

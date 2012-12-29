@@ -1,3 +1,4 @@
 .repo_only_files
 post-merge
+.ropeproject/config.py
 TODO

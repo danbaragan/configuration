@@ -8,7 +8,7 @@ import dirUtils
 g_verbose = False
 g_quiet = False
 g_exclude_filenames = ('~','.swp')
-g_exclude_dirs = ('.git')
+g_exclude_dirs = ('.git', '.ropeproject')
 g_repo_dir = None
 g_repo_only_files = None
 
@@ -44,6 +44,7 @@ def areHardLinks( src, dst ):
         return True
 
     return False
+
 
 # src is the newer file in this case and we are diffing the old home dst to the new repo src
 def diff( src, stat_details ):
@@ -135,6 +136,7 @@ def get_independent( name='.repo_only_files' ):
     f.close()
     return d
 
+
 def save_independent( name='.repo_only_files' ):
     global g_repo_only_files
     # truncate
@@ -144,6 +146,7 @@ def save_independent( name='.repo_only_files' ):
     for name in g_repo_only_files:
         f.write(name + "\n")
     f.close()
+
 
 def main(av):
     global g_verbose, g_repo_dir, g_repo_only_files, g_quiet

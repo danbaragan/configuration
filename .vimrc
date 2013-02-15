@@ -182,5 +182,5 @@ map <F7> :PyLint<CR>
 map <F8> :sign unplace *<CR>
 map <F9> :TagbarToggle<CR>
 let g:pymode_lint_write = 0
-let g:pymode_syntax_space_errors = 0
+let g:pymode_syntax_space_errors = 1
 let g:pymode_utils_whitespaces = 0 " do not remove unused whitespaces by default

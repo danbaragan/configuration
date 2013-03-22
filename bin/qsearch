@@ -20,6 +20,6 @@ case $file_name_part in
 	*			)	case_prefix="i" ;;
 esac
 
-exclude=".*~\|.*\.pyc"
+exclude=".*~\|.*\.pyc\|\..*\.sw[n-p]"
 
 find -H $dir -${case_prefix}name "*${file_name_part}*" \! -regex ${exclude} 2>/dev/null

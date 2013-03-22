@@ -128,9 +128,9 @@ set bs=2                " allow backspacing over everything in insert mode
 set history=50          " keep 50 lines of command line history
 set ruler               " show the cursor position all the time
 set noautoindent
-set ts=2
-set shiftwidth=2
-set softtabstop=2
+set ts=4
+set shiftwidth=4
+set softtabstop=4
 set laststatus=2
 set statusline=%<%f%=%(%h%m%r%=\ %{fugitive#statusline()}\ %l,%c%V\ %P%)
 set noai

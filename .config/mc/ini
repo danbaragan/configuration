@@ -82,6 +82,8 @@ skin=default
 
 [Layout]
 message_visible=0
+equal_split=1
+first_panel_size=52
 keybar_visible=1
 xterm_title=1
 output_lines=0
@@ -91,9 +93,9 @@ free_space=1
 
 horizontal_split=0
 vertical_equal=1
-left_panel_size=59
+left_panel_size=104
 horizontal_equal=1
-top_panel_size=59
+top_panel_size=52
 
 [Misc]
 timeformat_recent=%b %e %H:%M

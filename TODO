@@ -12,8 +12,7 @@ add some of this to .gitconfig
     excludesfile = /home/daniel/.gitignore_global
 [alias]
     lt = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
-    lxor2 = !sh -c 'git log --oneline --left-right --boundary $1' -
-    lxor = !sh -c 'git log --oneline --left-right --boundary $(git_current_branch)...origin/$(git_current_branch)' -
+    lxor = !sh -c 'git log --oneline --left-right --boundary $(git_current_branch)...origin/$(git_current_branch) $1' -
     st = status
     co = checkout
 [branch]

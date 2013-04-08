@@ -3,5 +3,6 @@
 if [ -n "$1" ]; then
 	echo "$1"
 else
-	git branch | grep -e'^\* '| cut --delimiter=' ' -f2
+	br=`git branch | grep -e'^\* '| cut --delimiter=' ' -f2`
+	echo $br...origin/$br
 fi	

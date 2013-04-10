@@ -82,8 +82,6 @@ skin=default
 
 [Layout]
 message_visible=0
-equal_split=1
-first_panel_size=52
 keybar_visible=1
 xterm_title=1
 output_lines=0

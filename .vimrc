@@ -184,3 +184,5 @@ map <F9> :TagbarToggle<CR>
 let g:pymode_lint_write = 0
 let g:pymode_syntax_space_errors = 1
 let g:pymode_utils_whitespaces = 0 " do not remove unused whitespaces by default
+
+map <leader>v :rightbelow vsplit 

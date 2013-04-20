@@ -95,8 +95,12 @@ map! <C-K> <esc><C-W>k<C-W>_
 map! <C-Up> <esc><C-W>k<C-W>_
 au BufNewFile,BufRead * exe "normal \<C-J>\<C-K>"
 
-map <C-H> :tabp<ENTER>
-map <C-L> :tabn<ENTER>
+map h :tabp<ENTER>
+map l :tabn<ENTER>
+map j :tabp<ENTER>
+map k :tabn<ENTER>
+map <C-H> <C-W>h
+map <C-L> <C-W>l
 
 " Folding
 set foldmethod=marker

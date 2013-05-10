@@ -143,7 +143,7 @@ set incsearch
 set wmh=0
 set hls
 
-set tags+=./tags;~/AccessNode/Shared
+set tags+=./tags,~/work/SellerEngine/tags
 
 " key mapping
 "map <C-j> <C-W>j<C-W>_

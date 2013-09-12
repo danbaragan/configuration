@@ -180,7 +180,7 @@ augroup END
 
 "map <leader>j :RopeGotoDefinition<CR>
 "map <leader>r :RopeRename<CR>
-map <F5> oimport pdb; pdb.set_trace() ### XXX BREAKPOINT<esc>
+map <F5> oimport IPython; IPython.embed() ### XXX BREAKPOINT<esc>
 map <F6> oimport ipdb; ipdb.set_trace() ### XXX BREAKPOINT<esc>
 map <F7> :PyLint<CR>
 map <F8> :sign unplace *<CR>

@@ -1,5 +1,3 @@
-[include]
-	path = ~/.gitconfig_local
 [user]
     name = Daniel Mihai Baragan
 [color]
@@ -21,3 +19,6 @@
 [merge]
     conflictstyle = diff3
 
+# allow this to overwrite
+[include]
+	path = ~/.gitconfig_local

@@ -3,5 +3,3 @@
 .*.sw[pon]
 *.pyc
 tags
-.ropeproject/
-pharvester.all/

@@ -74,8 +74,11 @@ def link( src, stat_details ):
     if not g_quiet:
         print "linking: ", dst, "to ", src, '.',
         subprocess.call(["diff", "-wu", dst, src ] )
-        answer = raw_input("Are you sure? Link, reverse link, break the linkage, delete repo file (y/r/u/d/n) ?")
+        answer = raw_input("Are you sure? Link, reverse link, break the linkage, delete repo file, nothing, yes to all (y/r/u/d/n/a) ?")
     else:
+        answer = 'y'
+    if answer == 'a':
+        g_quiet = True
         answer = 'y'
 
     if answer == 'y':

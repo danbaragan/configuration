@@ -10,7 +10,8 @@
 "           for OpenVMS:  sys$login:.vimrc
 filetype off
 "let g:pathogen_disabled = ['supertab']
-call pathogen#runtime_append_all_bundles()
+"call pathogen#runtime_append_all_bundles()
+call pathogen#incubate()
 call pathogen#helptags()
 
 " When started as 'evim', evim.vim will already have done these settings.

@@ -26,6 +26,7 @@ git submodule add https://github.com/vim-scripts/TaskList.vim.git bundle/tasklis
 #git submodule add https://github.com/sontek/rope-vim.git bundle/ropevim
 git submodule add https://github.com/majutsushi/tagbar.git bundle/tagbar
 git submodule add https://github.com/klen/python-mode.git bundle/python-mode
+git submodule add git://github.com/tpope/vim-surround.git bundle/vim-surround
 git submodule init
 git submodule update
 git submodule foreach git submodule init

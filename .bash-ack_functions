@@ -1,0 +1,180 @@
+#!/bin/bash
+#to be sourced in .bashrc
+
+export ACK_COLOR_MATCH=bright_red
+
+_do_the_ack-grep() {
+	if [ $1 -eq 1 ]; then
+	 	icase="-i"
+	else
+		icase=""
+	fi
+	wwords="$2"
+	src_type_args="--all"
+	src_type=""
+	search_pattern=""
+
+	case "$3" in
+		fc )
+			src_type='cc'
+			src_type_args="--cc --cpp"
+			shift
+			;;
+		fp )
+			src_type='python'
+			src_type_args="--python"
+			shift
+			;;
+		fr )
+			src_type='ruby'
+			src_type_args="--ruby"
+			shift
+			;;
+		fjs )
+			src_type="js"
+			src_type_args="--js"
+			shift
+			;;
+		fj )
+			src_type="java"
+			src_type_args="--java"
+			shift
+			;;
+		fphp )
+			src_type="php"
+			src_type_args="--php"
+			shift
+			;;
+		fw )
+			src_type="web"
+			src_type_args="--css --html --js --jsp --actionscript --xml"
+			shift
+			;;
+	esac
+	# else - search any files or use --type at end
+
+	if [ -n "$4" ]; then
+		case "$3" in
+			c )
+				case "$src_type" in
+					cc|python|ruby|php|java )
+						if [ $wwords -eq 1 ]; then
+							search_pattern='\bclass\s+'"$4"'\b'
+						else
+							search_pattern='\bclass\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*'
+						fi
+					 	;;
+				esac
+				shift
+				;;
+			# XXX: this is define for C/C++ and function definition for the rest - rather ugly
+			d )
+				case "$src_type" in
+					cc )
+						if [ $wwords -eq 1 ]; then
+							search_pattern='^\s*#\s*define\s+'"$4"'\s'
+						else
+							search_pattern='^\s*#\s*define\s+\w?[\w\d_]*'"$4"'[\w\d_]*\s'
+						fi
+						;;
+					python )
+						if [ $wwords -eq 1 ]; then
+							search_pattern='\bdef\s+'"$4"'\s*\('
+						else
+							search_pattern='\bdef\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*\s*\('
+						fi
+						;;
+					ruby )
+						if [ $wwords -eq 1 ]; then
+							search_pattern='\bdef\s+'"$4"'\b'
+						else
+							search_pattern='\bdef\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*'
+						fi
+						;;
+				esac
+				shift
+				;;
+			# this is function call
+			f )
+				case "$src_type" in
+					cc|python|java|js|php )
+						if [ $wwords -eq 1 ]; then
+							search_pattern='\b'"$4"'\b\s*\('
+						else
+							search_pattern="$4"'[\w\d_]*\s*\('
+						fi
+						;;
+					# ruby is tricky
+					ruby )
+						if [ $wwords -eq 1 ]; then
+							search_pattern='\b'"$4"'\b'
+						else
+							search_pattern="$4"
+						fi
+						;;
+				esac
+				shift
+				;;
+
+			* )
+				if [ $wwords -eq 1 ]; then
+					search_pattern='\b'"$3"'\b'
+				else
+					search_pattern="$3"
+				fi
+				# don't shift; the entity_type arg is missing
+				;;
+		esac
+	else
+		# after shift OR missing entity_type $3 is the pattern
+		#test existance of mandatory arg
+		if [ -z "$3" ]; then
+				echo "Usage: g[p][w][i] [fc|fp|fr|fjs|fj|fphp|fw] [c|d|f] <regex to match> [<path>...] [<more_options>]"
+				return 1
+		fi
+
+		if [ $wwords -eq 1 ]; then
+			search_pattern='\b'"$3"'\b'
+		else
+			search_pattern="$3"
+		fi
+	fi
+
+#test for path
+	if [ -n "$4" ]; then
+		shift 3
+		dir="$*"
+	else
+		dir=""
+	fi
+
+  ack-grep $icase $src_type_args "$search_pattern" $dir
+}
+
+g() {
+    _do_the_ack-grep 0 0 "$@"
+}
+gw() {
+    _do_the_ack-grep 0 1 "$@"
+}
+gp() {
+    _do_the_ack-grep 0 0 fp "$@"
+}
+gpw() {
+    _do_the_ack-grep 0 1 fp "$@"
+}
+
+
+gi() {
+    _do_the_ack-grep 1 0 "$@"
+}
+gwi() {
+    _do_the_ack-grep 1 1 "$@"
+}
+gpi() {
+    _do_the_ack-grep 1 0 fp "$@"
+}
+gpwi() {
+    _do_the_ack-grep 1 1 fp "$@"
+}
+

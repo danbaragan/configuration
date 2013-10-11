@@ -8,7 +8,7 @@ import dirUtils
 g_verbose = False
 g_quiet = False
 g_exclude_filenames = ('~','.swp')
-g_exclude_dirs = ('.git')
+g_exclude_dirs = ('.git', '.ropeproject')
 g_repo_dir = None
 g_repo_only_files = None
 
@@ -45,6 +45,7 @@ def areHardLinks( src, dst ):
 
     return False
 
+
 # src is the newer file in this case and we are diffing the old home dst to the new repo src
 def diff( src, stat_details ):
 
@@ -52,7 +53,7 @@ def diff( src, stat_details ):
     dst = os.path.join( dirUtils.homeDir, src[len(g_repo_dir)+1:] )
 
     # don't diff independent files
-    if src[len(g_repo_dir)+1:] in g_repo_only_files and g_repo_only_files[ src[len(g_repo_dir)+1:] ]:
+    if src[len(g_repo_dir)+1:] in g_repo_only_files:
         return
     if g_verbose:
         sys.stderr.write( "diffing: " + "diff " + "-wu " + dst + " " + src + '\n' )
@@ -63,17 +64,21 @@ def diff( src, stat_details ):
 def link( src, stat_details ):
     global g_verbose, g_quiet, g_repo_dir, g_repo_only_files
 
+    short_name = src[len(g_repo_dir)+1:]
     dst = os.path.join( dirUtils.homeDir, src[len(g_repo_dir)+1:] )
 
     # if src is not marked to be excluded
-    if src[len(g_repo_dir)+1:] in g_repo_only_files and g_repo_only_files[ src[len(g_repo_dir)+1:] ]:
+    if short_name in g_repo_only_files:
         return
 
     if not g_quiet:
         print "linking: ", dst, "to ", src, '.',
         subprocess.call(["diff", "-wu", dst, src ] )
-        answer = raw_input("Are you sure? Link, reverse link, break the linkage, delete repo file (y/r/u/d/n) ?")
+        answer = raw_input("Are you sure? Link, reverse link, break the linkage, delete repo file, nothing, yes to all (y/r/u/d/n/a) ?")
     else:
+        answer = 'y'
+    if answer == 'a':
+        g_quiet = True
         answer = 'y'
 
     if answer == 'y':
@@ -94,13 +99,9 @@ def link( src, stat_details ):
                 if not g_quiet: print e
         else:
             os.link( src, dst )
-        # remove relative file name to independent files
-        g_repo_only_files[ dst[len(dirUtils.homeDir)+1:] ] = False
     elif answer == 'r':
         os.remove( src )
         os.link( dst, src )
-        # remove relative file name to independent files
-        g_repo_only_files[ dst[len(dirUtils.homeDir)+1:] ] = False
     elif answer == 'u':
         try:
             os.remove( dst )
@@ -110,11 +111,9 @@ def link( src, stat_details ):
         except OSError:
             pass
         # add relative file name to independent files
-        g_repo_only_files[ dst[len(dirUtils.homeDir)+1:] ] = True
+        g_repo_only_files.append(short_name)
     elif answer == 'd':
         os.remove( src )
-        # remove relative file name to independent files; dst is a well formed path, even though it may not exist
-        g_repo_only_files[ dst[len(dirUtils.homeDir)+1:] ] = False
 
 
 def post_merge_relink( src, stat_details ):
@@ -126,7 +125,8 @@ def post_merge_relink( src, stat_details ):
 
 
 def get_independent( name='.repo_only_files' ):
-    d = {}
+    # use something ordered here
+    d = []
     try:
         f = open( os.path.join( g_repo_dir, name ) )
     except:
@@ -134,10 +134,11 @@ def get_independent( name='.repo_only_files' ):
         return d
 
     for line in f:
-        d[line.strip()] = True
+        d.append(line.strip())
 
     f.close()
     return d
+
 
 def save_independent( name='.repo_only_files' ):
     global g_repo_only_files
@@ -145,10 +146,10 @@ def save_independent( name='.repo_only_files' ):
     f = open( os.path.join( g_repo_dir, name ), 'w' )
     # leave exception uncaught - this really is exceptional
 
-    for name, keep in g_repo_only_files.iteritems():
-        if keep:
-            f.write(name + "\n")
+    for name in g_repo_only_files:
+        f.write(name + "\n")
     f.close()
+
 
 def main(av):
     global g_verbose, g_repo_dir, g_repo_only_files, g_quiet

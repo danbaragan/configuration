@@ -9,7 +9,9 @@
 "  for MS-DOS and Win32:  $VIM\_vimrc
 "           for OpenVMS:  sys$login:.vimrc
 filetype off
-call pathogen#runtime_append_all_bundles()
+"let g:pathogen_disabled = ['supertab']
+"call pathogen#runtime_append_all_bundles()
+call pathogen#incubate()
 call pathogen#helptags()
 
 " When started as 'evim', evim.vim will already have done these settings.
@@ -94,8 +96,12 @@ map! <C-K> <esc><C-W>k<C-W>_
 map! <C-Up> <esc><C-W>k<C-W>_
 au BufNewFile,BufRead * exe "normal \<C-J>\<C-K>"
 
-map <C-H> :tabp<ENTER>
-map <C-L> :tabn<ENTER>
+map h :tabp<ENTER>
+map l :tabn<ENTER>
+map j :tabp<ENTER>
+map k :tabn<ENTER>
+map <C-H> <C-W>h
+map <C-L> <C-W>l
 
 " Folding
 set foldmethod=marker
@@ -127,9 +133,9 @@ set bs=2                " allow backspacing over everything in insert mode
 set history=50          " keep 50 lines of command line history
 set ruler               " show the cursor position all the time
 set noautoindent
-set ts=2
-set shiftwidth=2
-set softtabstop=2
+set ts=4
+set shiftwidth=4
+set softtabstop=4
 set laststatus=2
 set statusline=%<%f%=%(%h%m%r%=\ %{fugitive#statusline()}\ %l,%c%V\ %P%)
 set noai
@@ -138,7 +144,7 @@ set incsearch
 set wmh=0
 set hls
 
-set tags+=./tags;~/AccessNode/Shared
+set tags+=./tags,~/work/SellerEngine/tags
 
 " key mapping
 "map <C-j> <C-W>j<C-W>_
@@ -165,7 +171,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 "map <leader>h :GundoToggle<CR>
 map <leader>d <Plug>TaskList
 "let g:pyflakes_use_quickfix = 0
-au FileType python set omnifunc=pythoncomplete#Complete
+"au FileType python set omnifunc=pythoncomplete#Complete
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabClosePreviewOnPopupClose = 1
 "change supertab.vim:571 to 'doautocmd supertab_preview_closed User <supertab>'
@@ -175,7 +181,13 @@ augroup END
 
 "map <leader>j :RopeGotoDefinition<CR>
 "map <leader>r :RopeRename<CR>
-nmap <F7> :PyLint<CR>
-nmap <F8> :sign unplace *<CR>
-nmap <F9> :TagbarToggle<CR>
+map <F5> oimport IPython; IPython.embed() ### XXX BREAKPOINT<esc>
+map <F6> oimport ipdb; ipdb.set_trace() ### XXX BREAKPOINT<esc>
+map <F7> :PyLint<CR>
+map <F8> :sign unplace *<CR>
+map <F9> :TagbarToggle<CR>
 let g:pymode_lint_write = 0
+let g:pymode_syntax_space_errors = 1
+let g:pymode_utils_whitespaces = 0 " do not remove unused whitespaces by default
+
+map <leader>v :rightbelow vsplit 

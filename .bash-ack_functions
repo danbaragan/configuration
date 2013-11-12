@@ -1,7 +1,7 @@
 #!/bin/bash
 #to be sourced in .bashrc
 
-export ACK_COLOR_MATCH=bright_red
+export ACK_COLOR_MATCH="bold red"
 
 _do_the_ack-grep() {
 	if [ $1 -eq 1 ]; then
@@ -10,7 +10,8 @@ _do_the_ack-grep() {
 		icase=""
 	fi
 	wwords="$2"
-	src_type_args="--all"
+	# search in all known type by default; use fa arg for all files
+	src_type_args="--known-types"
 	src_type=""
 	search_pattern=""
 
@@ -48,6 +49,12 @@ _do_the_ack-grep() {
 		fw )
 			src_type="web"
 			src_type_args="--css --html --js --jsp --actionscript --xml"
+			shift
+			;;
+		fa )
+			# search in all files. but see default ignores like dumpfiles
+			src_type="all"
+			src_type_args=""
 			shift
 			;;
 	esac

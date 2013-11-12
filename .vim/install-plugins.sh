@@ -1,7 +1,7 @@
 mkdir -p ~/.vim/
 mkdir -p ~/.vim/{autoload,bundle}
 mkdir -p ~/.vim/autoload ~/.vim/bundle
-curl -Sso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+curl -Sso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim || exit 1
 cd ~/.vim/
 git init
 

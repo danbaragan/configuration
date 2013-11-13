@@ -120,8 +120,15 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 if [ -f ~/.bash-ack_functions ]; then
+	ACK_VERSION=1
+	if ack-grep --version|grep -q 'ack-grep 2\.'; then
+	   ACK_VERSION=2
+	fi
+	export ACK_VERSION
+
 	. ~/.bash-ack_functions
 fi
+
 if [ -f ~/.bash-oldfunctions ]; then
 	. ~/.bash-oldfunctions
 fi

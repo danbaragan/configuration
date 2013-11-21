@@ -57,6 +57,11 @@ _do_the_ack-grep() {
 			src_type_args="--css --html --js --jsp --actionscript --xml"
 			shift
 			;;
+		fz )
+			src_type="zpt"
+			srt_type_args="--zpt"
+			shift
+			;;
 		fa )
 			# search in all files. but see default ignores like dumpfiles
 			src_type="all"

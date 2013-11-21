@@ -144,7 +144,7 @@ set incsearch
 set wmh=0
 set hls
 
-set tags+=./tags,~/work/SellerEngine/tags
+set tags+=./tags,tags,~/work/naaya/eggs/Zope2-2.12.26-py2.6-linux-x86_64.egg/tags,tags;~/work/naaya/
 
 " key mapping
 "map <C-j> <C-W>j<C-W>_
@@ -191,3 +191,5 @@ let g:pymode_syntax_space_errors = 1
 let g:pymode_utils_whitespaces = 0 " do not remove unused whitespaces by default
 
 map <leader>v :rightbelow vsplit 
+"zpt file type
+au BufRead,BufNewFile *.zpt setfiletype xhtml

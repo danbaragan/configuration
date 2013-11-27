@@ -6,4 +6,3 @@ setlocal expandtab
 setlocal ai
 setlocal si
 setlocal nonumber
-set matchpairs+=<:>

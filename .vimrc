@@ -151,8 +151,12 @@ set tags+=./tags,tags,~/work/naaya/eggs/Zope2-2.12.26-py2.6-linux-x86_64.egg/tag
 "map <C-k> <C-W>k<C-W>_
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
+let g:pep8_map='<F4>'
 
 colorscheme elflord
+let &colorcolumn=join(range(81,120),",")
+"let &colorcolumn="72,".join(range(80,120),",")
+highlight ColorColumn ctermbg=darkgrey guibg=#2c2d27
 
 "hi Folded cterm=bold ctermfg=red ctermbg=0
 "hi StatusLine term=bold cterm=bold ctermfg=yellow ctermbg=0
@@ -193,3 +197,4 @@ let g:pymode_utils_whitespaces = 0 " do not remove unused whitespaces by default
 map <leader>v :rightbelow vsplit 
 "zpt file type
 au BufRead,BufNewFile *.zpt setfiletype xhtml
+au BufRead,BufNewFile *.zcml setfiletype xhtml

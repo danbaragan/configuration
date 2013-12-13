@@ -151,7 +151,6 @@ set tags+=./tags,tags,~/work/naaya/eggs/Zope2-2.12.26-py2.6-linux-x86_64.egg/tag
 "map <C-k> <C-W>k<C-W>_
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
-let g:pep8_map='<F4>'
 
 colorscheme elflord
 let &colorcolumn=join(range(81,120),",")
@@ -187,7 +186,7 @@ augroup END
 "map <leader>r :RopeRename<CR>
 map <F5> oimport IPython; IPython.embed() ### XXX BREAKPOINT<esc>
 map <F6> oimport ipdb; ipdb.set_trace() ### XXX BREAKPOINT<esc>
-map <F7> :PyLint<CR>
+map <F7> :PymodeLint<CR>
 map <F8> :sign unplace *<CR>
 map <F9> :TagbarToggle<CR>
 let g:pymode_lint_write = 0
@@ -198,3 +197,8 @@ map <leader>v :rightbelow vsplit
 "zpt file type
 au BufRead,BufNewFile *.zpt setfiletype xhtml
 au BufRead,BufNewFile *.zcml setfiletype xhtml
+au BufRead * normal zR
+" find a way to put this in ftplugin specific files with no au trigger
+au BufRead *.py normal zM
+
+set fillchars="fold: "

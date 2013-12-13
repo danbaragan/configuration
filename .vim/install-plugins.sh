@@ -16,7 +16,7 @@ git submodule add https://github.com/mitechie/pyflakes-pathogen.git bundle/pyfla
 #git submodule add https://github.com/mileszs/ack.vim.git bundle/ack
 #git submodule add https://github.com/sjl/gundo.vim.git bundle/gundo
 git submodule add https://github.com/fs111/pydoc.vim.git bundle/pydoc
-git submodule add https://github.com/vim-scripts/pep8.git bundle/pep8
+#git submodule add https://github.com/vim-scripts/pep8.git bundle/pep8
 #git submodule add https://github.com/alfredodeza/pytest.vim.git bundle/py.test
 #git submodule add https://github.com/reinh/vim-makegreen bundle/makegreen
 git submodule add https://github.com/vim-scripts/TaskList.vim.git bundle/tasklist

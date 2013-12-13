@@ -189,9 +189,9 @@ map <F6> oimport ipdb; ipdb.set_trace() ### XXX BREAKPOINT<esc>
 map <F7> :PymodeLint<CR>
 map <F8> :sign unplace *<CR>
 map <F9> :TagbarToggle<CR>
-let g:pymode_lint_write = 0
+let g:pymode_lint_on_write = 0
 let g:pymode_syntax_space_errors = 1
-let g:pymode_utils_whitespaces = 0 " do not remove unused whitespaces by default
+let g:pymode_trim_whitespaces = 0 " do not remove unused whitespaces by default
 
 map <leader>v :rightbelow vsplit 
 "zpt file type
@@ -202,3 +202,4 @@ au BufRead * normal zR
 au BufRead *.py normal zM
 
 set fillchars="fold: "
+let g:pymode_run_key = '<F3>'

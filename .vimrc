@@ -9,7 +9,7 @@
 "  for MS-DOS and Win32:  $VIM\_vimrc
 "           for OpenVMS:  sys$login:.vimrc
 filetype off
-"let g:pathogen_disabled = ['supertab']
+let g:pathogen_disabled = ['jedi-vim']
 "call pathogen#runtime_append_all_bundles()
 call pathogen#incubate()
 call pathogen#helptags()
@@ -167,20 +167,7 @@ let g:MultipleSearchMaxColors=5
 let g:MultipleSearchColorSequence="Red,Green,Blue,Cyan,Magenta"
 let g:MultipleSearchTextColorSequence="White,Black,White,Black,Black"
 
-
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-
-"map <leader>h :GundoToggle<CR>
-map <leader>d <Plug>TaskList
-"let g:pyflakes_use_quickfix = 0
-"au FileType python set omnifunc=pythoncomplete#Complete
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabClosePreviewOnPopupClose = 1
-"change supertab.vim:571 to 'doautocmd supertab_preview_closed User <supertab>'
-augroup supertab_preview_closed
-	autocmd User <supertab> winc _
-augroup END
 
 "map <leader>j :RopeGotoDefinition<CR>
 "map <leader>r :RopeRename<CR>
@@ -203,3 +190,12 @@ au BufRead *.py normal zM
 
 set fillchars="fold: "
 let g:pymode_run_key = '<F3>'
+
+"let g:pyflakes_use_quickfix = 0
+"au FileType python set omnifunc=pythoncomplete#Complete
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabClosePreviewOnPopupClose = 1
+let g:pymode_rope_complete_on_dot = 0
+set completeopt-=preview
+autocmd CursorMovedI * if pumvisible() == 0|pclose|winc _|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|winc _|endif

@@ -59,7 +59,7 @@ _do_the_ack-grep() {
 			;;
 		fz )
 			src_type="zpt"
-			srt_type_args="--zpt"
+			src_type_args="--zpt"
 			shift
 			;;
 		fa )

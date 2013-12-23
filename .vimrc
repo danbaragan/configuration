@@ -9,7 +9,7 @@
 "  for MS-DOS and Win32:  $VIM\_vimrc
 "           for OpenVMS:  sys$login:.vimrc
 filetype off
-"let g:pathogen_disabled = ['supertab']
+let g:pathogen_disabled = ['jedi-vim']
 "call pathogen#runtime_append_all_bundles()
 call pathogen#incubate()
 call pathogen#helptags()
@@ -153,6 +153,9 @@ nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
 colorscheme elflord
+let &colorcolumn=join(range(81,120),",")
+"let &colorcolumn="72,".join(range(80,120),",")
+highlight ColorColumn ctermbg=darkgrey guibg=#2c2d27
 
 "hi Folded cterm=bold ctermfg=red ctermbg=0
 "hi StatusLine term=bold cterm=bold ctermfg=yellow ctermbg=0
@@ -164,32 +167,35 @@ let g:MultipleSearchMaxColors=5
 let g:MultipleSearchColorSequence="Red,Green,Blue,Cyan,Magenta"
 let g:MultipleSearchTextColorSequence="White,Black,White,Black,Black"
 
-
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-
-"map <leader>h :GundoToggle<CR>
-map <leader>d <Plug>TaskList
-"let g:pyflakes_use_quickfix = 0
-"au FileType python set omnifunc=pythoncomplete#Complete
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabClosePreviewOnPopupClose = 1
-"change supertab.vim:571 to 'doautocmd supertab_preview_closed User <supertab>'
-augroup supertab_preview_closed
-	autocmd User <supertab> winc _
-augroup END
 
 "map <leader>j :RopeGotoDefinition<CR>
 "map <leader>r :RopeRename<CR>
 map <F5> oimport IPython; IPython.embed() ### XXX BREAKPOINT<esc>
 map <F6> oimport ipdb; ipdb.set_trace() ### XXX BREAKPOINT<esc>
-map <F7> :PyLint<CR>
+map <F7> :PymodeLint<CR>
 map <F8> :sign unplace *<CR>
 map <F9> :TagbarToggle<CR>
-let g:pymode_lint_write = 0
+let g:pymode_lint_on_write = 0
 let g:pymode_syntax_space_errors = 1
-let g:pymode_utils_whitespaces = 0 " do not remove unused whitespaces by default
+let g:pymode_trim_whitespaces = 0 " do not remove unused whitespaces by default
 
 map <leader>v :rightbelow vsplit 
 "zpt file type
 au BufRead,BufNewFile *.zpt setfiletype xhtml
+au BufRead,BufNewFile *.zcml setfiletype xhtml
+au BufRead * normal zR
+" find a way to put this in ftplugin specific files with no au trigger
+au BufRead *.py normal zM
+
+set fillchars="fold: "
+let g:pymode_run_key = '<F3>'
+
+"let g:pyflakes_use_quickfix = 0
+"au FileType python set omnifunc=pythoncomplete#Complete
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabClosePreviewOnPopupClose = 1
+let g:pymode_rope_complete_on_dot = 0
+set completeopt-=preview
+autocmd CursorMovedI * if pumvisible() == 0|pclose|winc _|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|winc _|endif

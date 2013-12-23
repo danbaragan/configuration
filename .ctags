@@ -1,0 +1,4 @@
+--exclude=help
+--exclude=branches
+--exclude=.git
+--exclude=.svn

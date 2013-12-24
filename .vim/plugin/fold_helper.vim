@@ -20,5 +20,5 @@ function Fold()
 endfunction
 
 " Folding settings and mappings
-set foldmethod=marker
+set foldmethod=syntax
 nnoremap  <silent>  <space> :exe 'silent! normal! za'.(foldlevel('.')?'':'l')<cr>

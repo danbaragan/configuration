@@ -22,3 +22,5 @@
 # allow this to overwrite
 [include]
 	path = ~/.gitconfig_local
+[svn]
+	rmdir = true

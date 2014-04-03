@@ -1,5 +1,5 @@
 [user]
-    name = Daniel Mihai Baragan
+    name = Daniel Mihai Bărăgan
 [color]
     ui = true
 [credential]
@@ -13,14 +13,18 @@
     lxor = !sh -c 'git log --oneline --left-right --boundary $(git_current_branch $1)' -
     st = status
     co = checkout
+#    squash = !sh -c 'git reset --soft ${1} && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"'
+	lastlog = log --format=%B --reverse HEAD..HEAD@{1}
+    tst = !sh -c 'echo $1 && git commit --dry-run --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"'
 [branch]
     autosetuprebase = always
     autosetupmerge = false
 [merge]
     conflictstyle = diff3
+[svn]
+    rmdir = true
+
 
 # allow this to overwrite
 [include]
 	path = ~/.gitconfig_local
-[svn]
-	rmdir = true

@@ -136,6 +136,7 @@ set noautoindent
 set ts=4
 set shiftwidth=4
 set softtabstop=4
+set expandtab
 set laststatus=2
 set statusline=%<%f%=%(%h%m%r%=\ %{fugitive#statusline()}\ %l,%c%V\ %P%)
 set noai
@@ -143,6 +144,7 @@ set si
 set incsearch
 set wmh=0
 set hls
+set mouse=a
 
 set tags+=./tags,tags,~/work/naaya/eggs/Zope2-2.12.26-py2.6-linux-x86_64.egg/tags,tags;~/work/naaya/
 
@@ -199,3 +201,7 @@ let g:pymode_rope_complete_on_dot = 0
 set completeopt-=preview
 autocmd CursorMovedI * if pumvisible() == 0|pclose|winc _|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|winc _|endif
+
+"change cursor in insert mode
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"

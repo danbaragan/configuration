@@ -57,7 +57,7 @@ __git_prompt_color() {
 	git_status=$(git status 2>&1)
 	if echo $git_status|grep -q -e"Not a git repository"; then
 		echo "$White"
-	elif echo $git_status|grep -q -i -e"Changes to be committed:" -e"Changes not staged for commit:" -e"untracked"; then
+	elif echo $git_status|grep -q -i -e"Changes to be committed:" -e"Changes not staged for commit:" -e"Unmerged paths:" -e"untracked"; then
 		echo "$Red"
 	elif echo $git_status|grep -q -e"Your branch"; then
 		echo "$Yellow"

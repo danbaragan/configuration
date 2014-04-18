@@ -158,6 +158,7 @@ colorscheme elflord
 let &colorcolumn=join(range(81,120),",")
 "let &colorcolumn="72,".join(range(80,120),",")
 highlight ColorColumn ctermbg=darkgrey guibg=#2c2d27
+highlight MatchParen  ctermbg=red
 
 "hi Folded cterm=bold ctermfg=red ctermbg=0
 "hi StatusLine term=bold cterm=bold ctermfg=yellow ctermbg=0

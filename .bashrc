@@ -59,7 +59,7 @@ __git_prompt_color() {
 		echo "$White"
 	elif echo $git_status|grep -q -i -e"Changes to be committed:" -e"Changes not staged for commit:" -e"Unmerged paths:" -e"untracked"; then
 		echo "$Red"
-	elif echo $git_status|grep -q -e"Your branch"; then
+    elif echo $git_status|grep -q -e"Your branch \(and\|is ahead\|is behind\)"; then
 		echo "$Yellow"
 	else
 		echo "$Blue"

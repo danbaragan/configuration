@@ -11,7 +11,7 @@
 filetype off
 let g:pathogen_disabled = ['jedi-vim']
 "call pathogen#runtime_append_all_bundles()
-call pathogen#incubate()
+call pathogen#infect('bundle/{}')
 call pathogen#helptags()
 
 " When started as 'evim', evim.vim will already have done these settings.

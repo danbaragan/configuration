@@ -2,3 +2,4 @@
 post-merge
 .ropeproject/config.py
 TODO
+.mc.ini.orig

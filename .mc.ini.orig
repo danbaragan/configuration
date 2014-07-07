@@ -91,7 +91,7 @@ free_space=1
 
 horizontal_split=0
 vertical_equal=1
-left_panel_size=104
+left_panel_size=106
 horizontal_equal=1
 top_panel_size=52
 
@@ -131,8 +131,3 @@ torben_fj_mode=false
 quick_search_mode=2
 
 simple_swap=false
-
-[Panelize]
-Find *.orig after patching=find . -name \\*.orig -print
-Find SUID and SGID programs=find . \\( \\( -perm -04000 -a -perm +011 \\) -o \\( -perm -02000 -a -perm +01 \\) \\) -print
-Find rejects after patching=find . -name \\*.rej -print

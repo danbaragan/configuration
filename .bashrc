@@ -57,9 +57,9 @@ __git_prompt_color() {
 	git_status=$(git status 2>&1)
 	if echo $git_status|grep -q -e"Not a git repository"; then
 		echo "$White"
-	elif echo $git_status|grep -q -i -e"Changes to be committed:" -e"Changes not staged for commit:" -e"untracked"; then
+	elif echo $git_status|grep -q -i -e"Changes to be committed:" -e"Changes not staged for commit:" -e"Unmerged paths:" -e"untracked"; then
 		echo "$Red"
-	elif echo $git_status|grep -q -e"Your branch"; then
+    elif echo $git_status|grep -q -e"Your branch \(and\|is ahead\|is behind\)"; then
 		echo "$Yellow"
 	else
 		echo "$Blue"
@@ -120,8 +120,15 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 if [ -f ~/.bash-ack_functions ]; then
+	ACK_VERSION=1
+	if ack-grep --version|grep -q 'ack-grep 2\.'; then
+	   ACK_VERSION=2
+	fi
+	export ACK_VERSION
+
 	. ~/.bash-ack_functions
 fi
+
 if [ -f ~/.bash-oldfunctions ]; then
 	. ~/.bash-oldfunctions
 fi

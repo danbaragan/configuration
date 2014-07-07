@@ -190,6 +190,9 @@ def main(av):
         else:
             dirUtils.walk_dirs( path, post_merge_relink, except_these_dirs=g_exclude_dirs, except_these_files=g_exclude_filenames )
         save_independent()
+    else:
+        print "Unknown command:", command
+        sys.exit(1)
 
 
 if __name__ == "__main__":

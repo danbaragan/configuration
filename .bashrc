@@ -35,7 +35,7 @@ __git_prompt_color() {
 		echo "$Blue"
 	fi
 }
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w $(__git_prompt_color)$(__git_ps1 "(%s)")\[\033[01;34m\]\n--- \$\[\033[00m\] '
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w $(__git_prompt_color)$(__git_ps1 "(%s)")\[\033[01;34m\]\n=== \$\[\033[00m\] '
 
 # some more ls aliases
 alias ll='ls -l --color=auto'

@@ -497,8 +497,8 @@ bind ^Y screen -t log watch -n 5 rail -40 /var/log/syslog
 # [TODO briefly explain the difference between BIND and BINDKEY]
 #
 # Use the function keys to switch among windows.
-bindkey -k k1 select 0
-bindkey -k k2 select 1
+#bindkey -k k1 select 0
+#bindkey -k k2 select 1
 #bindkey -k k3 select 2
 #bindkey -k k4 select 3
 #bindkey -k k5 select 4
@@ -510,8 +510,8 @@ bindkey -k k2 select 1
 # Use the function keys F11 and F12
 # to cycle backwards/forwards in
 # the list of existing windows:
-bindkey -k F1 prev
-bindkey -k F2 next
+#bindkey -k F1 prev
+#bindkey -k F2 next
 #bindkey ^[[1;2D prev
 #bindkey ^[[1;2C next
 #

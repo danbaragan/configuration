@@ -9,10 +9,10 @@
 "  for MS-DOS and Win32:  $VIM\_vimrc
 "           for OpenVMS:  sys$login:.vimrc
 filetype off
-let g:pathogen_disabled = ['jedi-vim']
+"let g:pathogen_disabled = ['jedi-vim']
 "call pathogen#runtime_append_all_bundles()
-call pathogen#infect('bundle/{}')
-call pathogen#helptags()
+"call pathogen#incubate()
+"call pathogen#helptags()
 
 " When started as 'evim', evim.vim will already have done these settings.
 if v:progname =~? "evim"
@@ -138,13 +138,14 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set laststatus=2
-set statusline=%<%f%=%(%h%m%r%=\ %{fugitive#statusline()}\ %l,%c%V\ %P%)
+set statusline=%<%f%=%(%h%m%r%=\ You\ are\ on:\ %{hostname()}!\ %l,%c%V\ %P%)
 set noai
 set si
 set incsearch
 set wmh=0
 set hls
-set mouse=a
+"set mouse=a
+set nobackup
 
 set tags+=./tags,tags,~/work/naaya/eggs/Zope2-2.12.26-py2.6-linux-x86_64.egg/tags,tags;~/work/naaya/
 
@@ -155,7 +156,7 @@ nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
 colorscheme elflord
-let &colorcolumn=join(range(81,120),",")
+"let &colorcolumn=join(range(81,120),",")
 "let &colorcolumn="72,".join(range(80,120),",")
 highlight ColorColumn ctermbg=darkgrey guibg=#2c2d27
 highlight MatchParen  ctermbg=red

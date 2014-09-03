@@ -169,7 +169,7 @@ _do_the_ack-grep() {
 		dir=""
 	fi
 
-  ack-grep $icase $src_type_args "$search_pattern" $dir
+  ack $icase $src_type_args "$search_pattern" $dir
 }
 
 g() {

@@ -49,3 +49,29 @@ export EDITOR="/usr/bin/vim"
 export VISUAL="/usr/bin/vim"
 export LC_COLLATE=C
 eval `dircolors -b ~/.dir_colors`
+
+function qsearch() {
+    if [ -z "$1" ]; then
+        echo -e "Usage:\t qsearch <filename_part>"
+        return 1
+    else
+        file_name_part=$1
+    fi
+
+    shift
+    if [ -z "$1" ]; then
+        dir="."
+    else
+        dir="$*"
+    fi
+
+#smart case
+    case $file_name_part in
+        [A-Z][a-zA-Z0-9._-]*) case_prefix="" ;;
+        *           )   case_prefix="i" ;;
+    esac
+
+    exclude=".*~\|.*\.pyc\|\..*\.sw[n-p]"
+
+    find -H $dir -${case_prefix}name "*${file_name_part}*" \! -regex ${exclude} 2>/dev/null
+}

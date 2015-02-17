@@ -26,6 +26,10 @@ git submodule add https://github.com/majutsushi/tagbar.git bundle/tagbar
 git submodule add https://github.com/ervandew/supertab.git bundle/supertab
 git submodule add https://github.com/klen/python-mode.git bundle/python-mode
 git submodule add git://github.com/tpope/vim-surround.git bundle/vim-surround
+git submodule add https://github.com/jelera/vim-javascript-syntax.git bundle/vim-javascript-syntax
+git submodule add https://github.com/pangloss/vim-javascript.git bundle/vim-javascript
+#git submodule add https://github.com/nathanaelkane/vim-indent-guides.git bundle/indent-guides
+git submodule add https://github.com/scrooloose/syntastic.git bundle/syntastic
 git submodule init
 git submodule update
 git submodule foreach git submodule init

@@ -4,6 +4,10 @@ find . -name '*.py[co]' -delete
 find . -name '.*.sw[pon]' -delete
 find . -name '*~' -delete
 name=$(python setup.py sdist --format=zip | tail -n 1 | cut -d "'" -f 2)
+version=$(echo $name | cut -d '-' -f2-)
+echo Creating git tag $version
+git tag $version
+git push origin $version
 echo "Uploading ${name}.zip to eggshop"
 scp dist/${name}.zip ${user}@mojito.edw.ro:/var/local/eggshop
 echo "Removing dist/"

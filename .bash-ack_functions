@@ -184,7 +184,12 @@ gp() {
 gpw() {
     _do_the_ack-grep 0 1 fp "$@"
 }
-
+gj() {
+    _do_the_ack-grep 0 0 fjs "$@"
+}
+gjw() {
+    _do_the_ack-grep 0 1 fjs "$@"
+}
 
 gi() {
     _do_the_ack-grep 1 0 "$@"
@@ -198,4 +203,9 @@ gpi() {
 gpwi() {
     _do_the_ack-grep 1 1 fp "$@"
 }
-
+gji() {
+    _do_the_ack-grep 1 0 fjs "$@"
+}
+gjwi() {
+    _do_the_ack-grep 1 1 fjs "$@"
+}

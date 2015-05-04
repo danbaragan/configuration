@@ -1,3 +1,6 @@
 --type-set=zpt:ext:zpt
 --type-set=zcml:ext:zcml
 --type-set=dtml:ext:dtml-doc,dtml-meth
+--ignore-dir=tests
+--ignore-dir=south_migrations
+--ignore-dir=migrations

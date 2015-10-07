@@ -68,7 +68,7 @@ if has("autocmd")
 		au!
 
 		" For all text files set 'textwidth' to 78 characters.
-		autocmd FileType text setlocal textwidth=78
+		autocmd FileType text setlocal textwidth=120
 
 		" When editing a file, always jump to the last known cursor position.
 		" Don't do it when the position is invalid or when inside an event handler
@@ -127,7 +127,7 @@ endfun
 "hi Statement      term=bold  ctermfg=2
 "hi Special        term=bold  ctermfg=6 ctermbg=black
 
-"set textwidth=72
+set textwidth=120
 "set wrap
 set linebreak
 set bs=2                " allow backspacing over everything in insert mode
@@ -157,7 +157,7 @@ nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
 colorscheme elflord
-let &colorcolumn=join(range(81,120),",")
+let &colorcolumn=join(range(121,125),",")
 "let &colorcolumn="72,".join(range(80,120),",")
 highlight ColorColumn ctermbg=darkgrey guibg=#2c2d27
 highlight MatchParen  ctermbg=red
@@ -184,6 +184,8 @@ map <F9> :TagbarToggle<CR>
 let g:pymode_lint_write = 0
 let g:pymode_syntax_space_errors = 1
 let g:pymode_trim_whitespaces = 0 " do not remove unused whitespaces by default
+let g:pymode_rope_lookup_project = 0
+let g:pymode_rope = 0
 
 map <leader>v :rightbelow vsplit 
 "zpt file type

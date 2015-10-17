@@ -1,6 +1,5 @@
 mkdir -p ~/.vim/
 mkdir -p ~/.vim/{autoload,bundle}
-mkdir -p ~/.vim/autoload ~/.vim/bundle
 curl -LSso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim || exit 1
 cd ~/.vim/
 git init
@@ -11,10 +10,10 @@ git submodule add https://github.com/tpope/vim-git.git bundle/git
 #git submodule add https://github.com/sontek/minibufexpl.vim.git bundle/minibufexpl
 # not working
 #git submodule add https://github.com/wincent/Command-T.git bundle/command-t
-git submodule add https://github.com/mitechie/pyflakes-pathogen.git bundle/pyflakes-pathogen
+#git submodule add https://github.com/mitechie/pyflakes-pathogen.git bundle/pyflakes-pathogen
 #git submodule add https://github.com/mileszs/ack.vim.git bundle/ack
 #git submodule add https://github.com/sjl/gundo.vim.git bundle/gundo
-git submodule add https://github.com/fs111/pydoc.vim.git bundle/pydoc
+#git submodule add https://github.com/fs111/pydoc.vim.git bundle/pydoc
 #git submodule add https://github.com/vim-scripts/pep8.git bundle/pep8
 #git submodule add https://github.com/alfredodeza/pytest.vim.git bundle/py.test
 #git submodule add https://github.com/reinh/vim-makegreen bundle/makegreen
@@ -24,7 +23,7 @@ git submodule add https://github.com/fs111/pydoc.vim.git bundle/pydoc
 #git submodule add https://github.com/sontek/rope-vim.git bundle/ropevim
 git submodule add https://github.com/majutsushi/tagbar.git bundle/tagbar
 git submodule add https://github.com/ervandew/supertab.git bundle/supertab
-git submodule add https://github.com/klen/python-mode.git bundle/python-mode
+#git submodule add https://github.com/klen/python-mode.git bundle/python-mode
 git submodule add git://github.com/tpope/vim-surround.git bundle/vim-surround
 git submodule add https://github.com/jelera/vim-javascript-syntax.git bundle/vim-javascript-syntax
 git submodule add https://github.com/pangloss/vim-javascript.git bundle/vim-javascript

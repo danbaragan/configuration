@@ -172,40 +172,53 @@ _do_the_ack-grep() {
   ack-grep $icase $src_type_args "$search_pattern" $dir
 }
 
+# general alias - search all *known* file types. use 'fa' arg for really all
 g() {
     _do_the_ack-grep 0 0 "$@"
 }
+# general alias - whole words
 gw() {
     _do_the_ack-grep 0 1 "$@"
 }
-gp() {
-    _do_the_ack-grep 0 0 fp "$@"
-}
-gpw() {
-    _do_the_ack-grep 0 1 fp "$@"
-}
-gj() {
-    _do_the_ack-grep 0 0 fjs "$@"
-}
-gjw() {
-    _do_the_ack-grep 0 1 fjs "$@"
-}
-
+# general alias - case insensitive
 gi() {
     _do_the_ack-grep 1 0 "$@"
 }
+# general alias - whole words and case insensitive
 gwi() {
     _do_the_ack-grep 1 1 "$@"
 }
+
+# search python files, add 'd' arg for function definitions, add 'c' arg for classes
+gp() {
+    _do_the_ack-grep 0 0 fp "$@"
+}
+# search python files - whole words
+gpw() {
+    _do_the_ack-grep 0 1 fp "$@"
+}
+# search python files - case insensitive
 gpi() {
     _do_the_ack-grep 1 0 fp "$@"
 }
+# search python files - whole words and case insensitive
 gpwi() {
     _do_the_ack-grep 1 1 fp "$@"
 }
+
+# search javascript files, add 'd' arg for function definitions, add 'c' arg for classes
+gj() {
+    _do_the_ack-grep 0 0 fjs "$@"
+}
+# search javascript files - whole words
+gjw() {
+    _do_the_ack-grep 0 1 fjs "$@"
+}
+# search javascript files - case insensitive
 gji() {
     _do_the_ack-grep 1 0 fjs "$@"
 }
+# search javascript files - whole words and case insensitive
 gjwi() {
     _do_the_ack-grep 1 1 fjs "$@"
 }

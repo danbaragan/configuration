@@ -4,3 +4,4 @@
 --ignore-dir=tests
 --ignore-dir=south_migrations
 --ignore-dir=migrations
+--ignore-dir=.idea

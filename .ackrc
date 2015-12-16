@@ -5,3 +5,4 @@
 --ignore-dir=south_migrations
 --ignore-dir=migrations
 --ignore-dir=.idea
+--ignore-dir=.pycharm_helpers

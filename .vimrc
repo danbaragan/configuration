@@ -159,7 +159,7 @@ nnoremap <C-y> 3<C-y>
 colorscheme elflord
 let &colorcolumn=join(range(121,125),",")
 "let &colorcolumn="72,".join(range(80,120),",")
-highlight ColorColumn ctermbg=darkgrey guibg=#2c2d27
+highlight ColorColumn ctermbg=237 guibg=#2c2d27
 highlight MatchParen  ctermbg=red
 
 "hi Folded cterm=bold ctermfg=red ctermbg=0

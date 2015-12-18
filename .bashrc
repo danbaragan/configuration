@@ -138,4 +138,5 @@ if [ -f ~/.bashLocalSettings ]; then
 fi
 export LC_COLLATE=C
 export LC_NUMERIC="en_US.UTF-8"
+export TERM=xterm-256color
 eval `dircolors -b ~/.dir_colors`

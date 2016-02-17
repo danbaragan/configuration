@@ -79,6 +79,7 @@ _do_the_ack-grep() {
     esac
     # else - search any files or use --type at end
 
+    entity_type_found="false"
     if [ -n "$4" ]; then
         entity_type_found="true"
         case "$3" in

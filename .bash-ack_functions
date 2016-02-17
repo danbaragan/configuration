@@ -4,6 +4,11 @@
 export ACK_COLOR_MATCH="bold red"
 
 _do_the_ack-grep() {
+    normalizer="$MYACK_CAMELCASE_NORMALIZER"
+    if [ -z "$normalizer" ]; then
+        normalizer="camelcase-normalizer.py"
+    fi
+
 	if [ $1 -eq 1 ]; then
 	 	icase="-i"
 	else
@@ -75,6 +80,7 @@ _do_the_ack-grep() {
 	# else - search any files or use --type at end
 
 	if [ -n "$4" ]; then
+        entity_type_found="true"
 		case "$3" in
 			c )
 				case "$src_type" in
@@ -137,29 +143,55 @@ _do_the_ack-grep() {
 				shift
 				;;
 
+            # normal form: camelcase vs underscore/dash
+            n )
+                case "$src_type" in
+                    web )
+                        normal_form_separator='-'
+                        ;;
+                    * )
+                        normal_form_separator='_'
+                        ;;
+                esac
+                include_normal_from="false"
+                search_pattern="$4"
+                normal_form=`MYACK_NORMAL_FORM_SEPARATOR="$normal_form_separator" $normalizer $search_pattern`
+                if [ "$normal_form" != "$search_pattern" ]; then
+                    include_normal_from="true"
+                    if [ $wwords -eq 1 ]; then
+                        normal_form='\b'"$normal_form"'\b'
+                    fi
+                fi
+
+                if [ $wwords -eq 1 ]; then
+                    search_pattern='\b'"$search_pattern"'\b'
+                fi
+                if [ $include_normal_from == "true" ]; then
+                    search_pattern="$search_pattern"'|'"$normal_form"
+                fi
+                shift
+                ;;
 			* )
-				if [ $wwords -eq 1 ]; then
-					search_pattern='\b'"$3"'\b'
-				else
-					search_pattern="$3"
-				fi
-				# don't shift; the entity_type arg is missing
+				# don't shift; this arg was not an entity_type
+                entity_type_found="false"
 				;;
 		esac
-	else
+    fi
+    # if search_patern was not computed above, with entity type in consideration
+    # do the generic search pattern construction
+	if [ $entity_type_found == "false" ]; then
 		# after shift OR missing entity_type $3 is the pattern
-		#test existance of mandatory arg
+		# test existance of mandatory arg
 		if [ -z "$3" ]; then
 				echo "Usage: g[p][w][i] [fc|fp|fr|fjs|fj|fphp|fw] [c|d|f] <regex to match> [<path>...] [<more_options>]"
 				return 1
 		fi
+        search_pattern="$3"
+        if [ $wwords -eq 1 ]; then
+            search_pattern='\b'"$search_pattern"'\b'
+        fi
+    fi
 
-		if [ $wwords -eq 1 ]; then
-			search_pattern='\b'"$3"'\b'
-		else
-			search_pattern="$3"
-		fi
-	fi
 
 #test for path
 	if [ -n "$4" ]; then

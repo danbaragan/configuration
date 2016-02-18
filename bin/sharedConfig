@@ -10,33 +10,13 @@ g_quiet = False
 g_exclude_filenames = ('~','.swp')
 g_exclude_dirs = ('.git', '.ropeproject')
 g_repo_dir = None
-g_repo_only_files = None
+g_repo_only_files = []
 
-'''
-def walk_dirs( repo_path, action, quiet = False ):
-    global g_home_dir
-    repo_path = os.path.abspath( repo_path )
-    files = os.listdir( repo_path )
 
-    for name in files:
-        name = os.path.join( repo_path, name )
-        details = os.stat( name )
-
-        if stat.S_ISDIR( details.st_mode ):
-            if os.path.basename( name ) == '.git':
-                continue
-            walk_dirs( name, action, quiet )
-        if stat.S_ISREG( details.st_mode ):
-            global g_exclude_filenames, g_repo_dir
-            if name.endswith( g_exclude_filenames ): continue
-            home_path = os.path.join( g_home_dir, name[len(g_repo_dir)+1:] )
-            action( name, home_path, quiet )
-'''
-
-def areHardLinks( src, dst ):
+def areHardLinks(src, dst):
     try:
-        srcDetails = os.stat( src )
-        dstDetails = os.stat( dst )
+        srcDetails = os.stat(src)
+        dstDetails = os.stat(dst)
     except BaseException:
         return False
 
@@ -47,33 +27,33 @@ def areHardLinks( src, dst ):
 
 
 # src is the newer file in this case and we are diffing the old home dst to the new repo src
-def diff( src, stat_details ):
+def diff(src, stat_details):
 
     global g_repo_dir, g_repo_only_files, g_verbose, g_quiet
-    dst = os.path.join( dirUtils.homeDir, src[len(g_repo_dir)+1:] )
+    dst = os.path.join(dirUtils.homeDir, src[len(g_repo_dir)+1:])
 
     # don't diff independent files
     if src[len(g_repo_dir)+1:] in g_repo_only_files:
         return
     if g_verbose:
-        sys.stderr.write( "diffing: " + "diff " + "-wu " + dst + " " + src + '\n' )
+        sys.stderr.write("diffing: " + "diff " + "-wu " + dst + " " + src + '\n')
     if not g_quiet:
-        subprocess.call(["diff", "-wu", dst, src ] )
+        subprocess.call(["diff", "-wu", dst, src ])
 
 
-def link( src, stat_details ):
+def link(src, stat_details):
     global g_verbose, g_quiet, g_repo_dir, g_repo_only_files
 
     short_name = src[len(g_repo_dir)+1:]
-    dst = os.path.join( dirUtils.homeDir, src[len(g_repo_dir)+1:] )
+    dst = os.path.join(dirUtils.homeDir, src[len(g_repo_dir)+1:])
 
     # if src is not marked to be excluded
     if short_name in g_repo_only_files:
         return
 
     if not g_quiet:
-        print "linking: ", dst, "to ", src, '.',
-        subprocess.call(["diff", "-wu", dst, src ] )
+        print "linking: (replace)", dst, "to (by)", src, '.',
+        subprocess.call(["diff", "-wu", dst, src ])
         answer = raw_input("Are you sure? Link, reverse link, break the linkage, delete repo file, nothing, yes to all (y/r/u/d/n/a) ?")
     else:
         answer = 'y'
@@ -82,85 +62,94 @@ def link( src, stat_details ):
         answer = 'y'
 
     if answer == 'y':
-        if not os.path.exists( os.path.dirname( dst ) ):
-            os.makedirs( os.path.dirname( dst ) )
-        elif areHardLinks( src, dst ):
+        if not os.path.exists(os.path.dirname(dst)):
+            os.makedirs(os.path.dirname(dst))
+        elif areHardLinks(src, dst):
             if not g_quiet: print "%s and %s are already linked" % (src, dst)
             return
-        elif os.path.exists( dst ):
-            if os.path.exists( dst+".git.bak" ): os.remove( dst+".git.bak" )
-            os.rename( dst, dst+".git.bak" )
+        elif os.path.exists(dst):
+            if os.path.exists(dst+".git.bak"): os.remove(dst+".git.bak")
+            os.rename(dst, dst+".git.bak")
         # if it is a symlink, copy it as it is
-        if os.path.islink( src ):
-            linkto = os.readlink( src )
+        if os.path.islink(src):
+            linkto = os.readlink(src)
             try:
-                os.symlink( linkto, dst )
+                os.symlink(linkto, dst)
             except BaseException as e:
                 if not g_quiet: print e
         else:
-            os.link( src, dst )
+            os.link(src, dst)
     elif answer == 'r':
-        os.remove( src )
-        os.link( dst, src )
+        os.remove(src)
+        os.link(dst, src)
     elif answer == 'u':
         try:
-            os.remove( dst )
+            os.remove(dst)
             # if nothing to delete, then the copy will not be made
-            shutil.copy2( src, dst )
+            shutil.copy2(src, dst)
             # FIXME: if the copy fails
         except OSError:
             pass
         # add relative file name to independent files
         g_repo_only_files.append(short_name)
     elif answer == 'd':
-        os.remove( src )
+        os.remove(src)
 
 
-def post_merge_relink( src, stat_details ):
+def post_merge_relink(src, stat_details):
     global g_repo_dir
 
     # if src has only one hard link count
     if stat_details.st_nlink == 1:
-        link( src, stat_details )
+        link(src, stat_details)
 
 
-def get_independent( name='.repo_only_files' ):
+def get_independent(name='.repo_only_files'):
+    global g_repo_only_files
     # use something ordered here
-    d = []
     try:
-        f = open( os.path.join( g_repo_dir, name ) )
+        with open(os.path.join(g_repo_dir, name)) as f:
+            for line in f:
+                d.append(line.strip())
     except:
         # it's ok if no exception list
-        return d
+        sys.stderr.write("Failed to open {} for reading\n".format(name))
 
-    for line in f:
-        d.append(line.strip())
-
-    f.close()
-    return d
-
-
-def save_independent( name='.repo_only_files' ):
+def save_independent(name='.repo_only_files'):
     global g_repo_only_files
     # truncate
-    f = open( os.path.join( g_repo_dir, name ), 'w' )
+    with open(os.path.join(g_repo_dir, name), 'w') as f:
+        for name in g_repo_only_files:
+            f.write(name + "\n")
     # leave exception uncaught - this really is exceptional
 
-    for name in g_repo_only_files:
-        f.write(name + "\n")
-    f.close()
+def print_usage(cmd_name):
+    print """This scans through your repo files, finds the mathcing files in your home dir and hard links them
+    to the files in the repo
+Usage:
+    {} [-v|--verbose] [-q|--quiet] command repo_path
 
+    command:
+        diff: show the diffs only
+        link: scan and do the linking
+        post-merge: link only files that have one link in the repo and are also present in the home dir.
+"""
 
 def main(av):
     global g_verbose, g_repo_dir, g_repo_only_files, g_quiet
     command = None
     path = None
     for arg in av:
-        if arg=='-v' or arg=='--verbose': g_verbose = True
-        elif arg=='-q' or arg=='--quiet': g_quiet = True
-        elif not command: command = arg
-        elif not g_repo_dir: g_repo_dir = os.path.abspath( arg )
-        elif not path: path = os.path.join( g_repo_dir, arg )
+        if arg == '-v' or arg == '--verbose':
+            g_verbose = True
+        elif arg == '-q' or arg == '--quiet':
+            g_quiet = True
+        elif not command:
+            command = arg
+        elif not g_repo_dir:
+            g_repo_dir = os.path.abspath(arg)
+        elif not path:
+            path = os.path.join(g_repo_dir, arg)
     if not command:
         print "Provide a command"
         sys.exit(1)
@@ -170,25 +159,25 @@ def main(av):
     if not path: path = g_repo_dir
     if g_quiet: g_verbose=False
 
-    g_repo_only_files = get_independent()
-    details = os.stat( path )
+    get_independent()
+    details = os.stat(path)
 
     if command == 'diff':
-        if stat.S_ISREG( details.st_mode ):
-            diff( path, details )
+        if stat.S_ISREG(details.st_mode):
+            diff(path, details)
         else:
-            dirUtils.walk_dirs( path, diff, except_these_dirs=g_exclude_dirs, except_these_files=g_exclude_filenames )
+            dirUtils.walk_dirs(path, diff, except_these_dirs=g_exclude_dirs, except_these_files=g_exclude_filenames)
     elif command == 'link':
-        if stat.S_ISREG( details.st_mode ):
-            link( path, details )
+        if stat.S_ISREG(details.st_mode):
+            link(path, details)
         else:
-            dirUtils.walk_dirs( path, link, except_these_dirs=g_exclude_dirs, except_these_files=g_exclude_filenames )
+            dirUtils.walk_dirs(path, link, except_these_dirs=g_exclude_dirs, except_these_files=g_exclude_filenames)
         save_independent()
     elif command == 'post-merge':
-        if stat.S_ISREG( details.st_mode ):
-            post_merge_relink( path, details )
+        if stat.S_ISREG(details.st_mode):
+            post_merge_relink(path, details)
         else:
-            dirUtils.walk_dirs( path, post_merge_relink, except_these_dirs=g_exclude_dirs, except_these_files=g_exclude_filenames )
+            dirUtils.walk_dirs(path, post_merge_relink, except_these_dirs=g_exclude_dirs, except_these_files=g_exclude_filenames)
         save_independent()
     else:
         print "Unknown command:", command
@@ -196,5 +185,8 @@ def main(av):
 
 
 if __name__ == "__main__":
+    if '--help' in sys.argv:
+        print_usage(sys.argv[0])
+        sys.exit(0)
     main(sys.argv[1:])
 

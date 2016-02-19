@@ -129,10 +129,6 @@ if [ -f ~/.bash-ack_functions ]; then
 	. ~/.bash-ack_functions
 fi
 
-if [ -f ~/.bash-oldfunctions ]; then
-	. ~/.bash-oldfunctions
-fi
-
 if [ -f ~/.bashLocalSettings ]; then
 	. ~/.bashLocalSettings
 fi

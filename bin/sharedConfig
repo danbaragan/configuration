@@ -17,6 +17,10 @@ g_repo_only_files = []
 g_homeDir = os.environ['HOME']
 
 
+__all__ = (
+    'walk_dirs',
+)
+
 def walk_dirs(top_path, action, except_these_dirs=None, only_these_files=None, except_these_files=None):
     """
     Recursively walk directory, applying action on each name
@@ -225,4 +229,3 @@ if __name__ == "__main__":
         print_usage(sys.argv[0])
         sys.exit(0)
     main(sys.argv[1:])
-

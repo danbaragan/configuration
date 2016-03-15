@@ -19,8 +19,6 @@ __EOF__
 rm /tmp/_ccd
 
 _netreset() {
-    echo bla
-    return 0
     _compose stop
     docker rm cdn.docker.vg cc_router cc_dns
     docker network rm clearcare

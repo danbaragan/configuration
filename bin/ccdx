@@ -1,0 +1,36 @@
+#!/bin/bash
+cp /home/daniel/work/clearcare/clearcare/docker/utils/ccd /tmp/_ccd
+patch /tmp/_ccd <<__EOF__ >/dev/null
+--- ccd	2016-03-08 12:51:46.891083089 +0200
++++ _ccd	2016-03-15 12:34:17.102366359 +0200
+@@ -264,9 +264,6 @@
+     ?)
+         _commands
+         ;;
+-    *)
+-        _usage
+-        ;;
+     esac
+     shift
+ fi
+__EOF__
+
+. /tmp/_ccd
+rm /tmp/_ccd
+
+_netreset() {
+    echo bla
+    return 0
+    _compose stop
+    docker rm cdn.docker.vg cc_router cc_dns
+    docker network rm clearcare
+}
+
+if [[ $arg ]]; then
+    case $arg in
+    netreset)
+        _netreset
+        ;;
+    esac
+    shift
+fi

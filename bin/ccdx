@@ -20,7 +20,7 @@ rm /tmp/_ccd
 
 _netreset() {
     _compose stop
-    docker rm cdn.docker.vg cc_router cc_dns
+    docker rm cdn.docker.vg cc_router cc_dns cc_mail
     docker network rm clearcare
 }
 

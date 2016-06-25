@@ -30,6 +30,7 @@ git submodule add https://github.com/pangloss/vim-javascript.git bundle/vim-java
 git submodule add https://github.com/mxw/vim-jsx.git bundle/vim-jsx
 #git submodule add https://github.com/nathanaelkane/vim-indent-guides.git bundle/indent-guides
 git submodule add https://github.com/scrooloose/syntastic.git bundle/syntastic
+git submodule add https://github.com/ekalinin/Dockerfile.vim.git bundle/Dockerfile
 git submodule init
 git submodule update
 git submodule foreach git submodule init

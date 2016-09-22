@@ -42,12 +42,12 @@ _do_the_ack-grep() {
             src_type_args="--ruby"
             shift
             ;;
-        fjs )
+        fj )
             src_type="js"
             src_type_args="--js"
             shift
             ;;
-        fj )
+        fja )
             src_type="java"
             src_type_args="--java"
             shift
@@ -85,7 +85,7 @@ _do_the_ack-grep() {
         case "$3" in
             c )
                 case "$src_type" in
-                    cc|python|ruby|php|java )
+                    cc|python|ruby|php|java|js )
                         if [ $wwords -eq 1 ]; then
                             search_pattern='\bclass\s+'"$4"'\b'
                         else
@@ -117,6 +117,13 @@ _do_the_ack-grep() {
                             search_pattern='\bdef\s+'"$4"'\b'
                         else
                             search_pattern='\bdef\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*'
+                        fi
+                        ;;
+                    js)
+                        if [ $wwords -eq 1 ]; then
+                            search_pattern='\bfunction\s+'"$4"'\s*\('
+                        else
+                            search_pattern='\bfunction\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*\s*\('
                         fi
                         ;;
                 esac

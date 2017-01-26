@@ -1,5 +1,6 @@
 .repo_only_files
 post-merge
+post-checkout
 .ropeproject/config.py
 TODO
 .mc.ini.orig

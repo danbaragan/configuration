@@ -1,15 +1,9 @@
 #!/bin/bash
 
-# mint-fourtue.
-#/usr/bin/mint-fortune
-
 export GOPATH=$HOME/gobin
 export PATH=${HOME}/bin:$GOPATH:${PATH}
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
 '
-if [ -f ~/.ccd-env ]; then
-    . ~/.ccd-env
-fi
 #xset b 5 440 50

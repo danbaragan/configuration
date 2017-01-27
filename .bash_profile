@@ -27,27 +27,11 @@ shopt -s checkwinsize
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
-
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    *color*) color_prompt=yes;;
 esac
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
 White="[m[K"
 Red="[0;31m[K"
 Green="[0;32m[K"
@@ -65,12 +49,14 @@ __git_prompt_color() {
 		echo "$Blue"
 	fi
 }
+[ -f ~/.git-prompt.sh ] && . ~/.git-prompt.sh
+[ -f ~/.git-completion.sh ] && . ~/.git-completion.sh
 if [ "$color_prompt" = yes ]; then
 	PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w $(__git_prompt_color)$(__git_ps1 "(%s)")\[\033[01;34m\]\n--- \$\[\033[00m\] '
 else
 	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(__git_ps1 "(%s)")\n---\$ '
 fi
-unset color_prompt force_color_prompt
+unset color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -81,58 +67,26 @@ xterm*|rxvt*)
     ;;
 esac
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# some more ls aliases
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -1'
-alias apt=aptitude
-
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+[ -f ~/.bash_aliases ] && . ~/.bash_aliases
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+[ -f ~/.bash-ack_functions ] && . ~/.bash-ack_functions
+[ -f ~/.bashLocalSettings ] && . ~/.bashLocalSettings
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
-
-if [ -f ~/.bash-ack_functions ]; then
-	ACK_VERSION=1
-	if ack-grep --version|grep -q 'ack-grep 2\.'; then
-	   ACK_VERSION=2
-	fi
-	export ACK_VERSION
-
-	. ~/.bash-ack_functions
-fi
-
-if [ -f ~/.bashLocalSettings ]; then
-	. ~/.bashLocalSettings
-fi
 export LC_COLLATE=C
 export LC_NUMERIC="en_US.UTF-8"
 export TERM=xterm-256color
-eval `dircolors -b ~/.dir_colors`
+
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+

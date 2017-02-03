@@ -81,7 +81,20 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 [ -f ~/.bash-ack_functions ] && . ~/.bash-ack_functions
-[ -f ~/.bashLocalSettings ] && . ~/.bashLocalSettings
+
+export ARCHFLAGS="-arch x86_64"
+export PIP_REQUIRE_VIRTUALENV=true
+export WORKON_HOME=$HOME/.virtualenvs
+[ -f /usr/local/bin/virtualenvwrapper.sh ] && . /usr/local/bin/virtualenvwrapper.sh
+
+gpip() {
+    PIP_REQUIRE_VIRTUALENV='' pip "$@"
+}
+
+gpip3() {
+    PIP_REQUIRE_VIRTUALENV='' pip3 "$@"
+}
+
 
 export LC_COLLATE=C
 export LC_NUMERIC="en_US.UTF-8"
@@ -90,3 +103,12 @@ export TERM=xterm-256color
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
+export GOPATH=$HOME/gobin
+export PATH=${HOME}/bin:$GOPATH:${PATH}
+# system vim; not brew...
+export EDITOR=/usr/bin/vim
+export VISUAL=/usr/bin/vim
+
+PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
+'
+[ -f ~/.bashLocalSettings ] && . ~/.bashLocalSettings

@@ -101,7 +101,7 @@ export LC_NUMERIC="en_US.UTF-8"
 export TERM=xterm-256color
 
 export CLICOLOR=1
-export LSCOLORS=GxFxCxDxBxegedabagaced
+export LSCOLORS=ExGxFxDxCxgxdxabafacae
 
 export GOPATH=$HOME/gobin
 export PATH=${HOME}/bin:$GOPATH:${PATH}

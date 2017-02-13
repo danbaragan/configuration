@@ -1,4 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+# ~/.bash_profie: executed by bash(1) for login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -103,8 +103,12 @@ export TERM=xterm-256color
 export CLICOLOR=1
 export LSCOLORS=ExGxFxDxCxgxdxabafacae
 
-export GOPATH=$HOME/gobin
-export PATH=${HOME}/bin:$GOPATH:${PATH}
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+else
+    export GOPATH=$HOME/gobin
+    export PATH=${HOME}/bin:$GOPATH:${PATH}
+fi
 # system vim; not brew...
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim

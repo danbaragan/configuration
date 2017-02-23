@@ -101,12 +101,8 @@ export TERM=xterm-256color
 export CLICOLOR=1
 export LSCOLORS=ExGxFxDxCxgxdxabafacae
 
-if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
-else
-    export GOPATH=$HOME/gobin
-    export PATH=${HOME}/bin:$GOPATH:${PATH}
-fi
+export GOPATH=$HOME/gobin
+export PATH=${HOME}/bin:$GOPATH:${PATH}
 # system vim; not brew...
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim

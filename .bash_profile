@@ -109,4 +109,5 @@ export VISUAL=/usr/bin/vim
 
 PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
 '
+[ -f ~/.bashperlrc ] && . ~/.bashperlrc
 [ -f ~/.bashLocalSettings ] && . ~/.bashLocalSettings

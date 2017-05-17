@@ -1,6 +1,7 @@
---type-set=zpt:ext:zpt
---type-set=zcml:ext:zcml
 --type-set=dtml:ext:dtml-doc,dtml-meth
+--type-set=vue:ext:vue
+--type-set=zcml:ext:zcml
+--type-set=zpt:ext:zpt
 --ignore-dir=tests
 --ignore-dir=south_migrations
 --ignore-dir=migrations

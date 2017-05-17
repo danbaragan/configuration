@@ -53,7 +53,7 @@ _do_the_ack-grep() {
             ;;
         fw )
             src_type="web"
-            src_type_args="--css --html --js --jsp --actionscript --xml --zpt --zcml --dtml"
+            src_type_args="--css --html --js --jsp --actionscript --xml --zpt --zcml --dtml --vue"
             shift
             ;;
         fz )

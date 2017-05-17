@@ -152,11 +152,11 @@ _do_the_ack-grep() {
                         normal_form_separator='_'
                         ;;
                 esac
-                include_normal_from="false"
+                include_normal_form="false"
                 search_pattern="$4"
                 normal_form=`MYACK_NORMAL_FORM_SEPARATOR="$normal_form_separator" $normalizer $search_pattern`
                 if [ "$normal_form" != "$search_pattern" ]; then
-                    include_normal_from="true"
+                    include_normal_form="true"
                     if [ $wwords -eq 1 ]; then
                         normal_form='\b'"$normal_form"'\b'
                     fi
@@ -165,7 +165,7 @@ _do_the_ack-grep() {
                 if [ $wwords -eq 1 ]; then
                     search_pattern='\b'"$search_pattern"'\b'
                 fi
-                if [ $include_normal_from == "true" ]; then
+                if [ $include_normal_form == "true" ]; then
                     search_pattern="$search_pattern"'|'"$normal_form"
                 fi
                 shift

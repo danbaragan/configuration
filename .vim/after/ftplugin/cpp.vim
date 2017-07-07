@@ -1,4 +1,5 @@
 setl expandtab
+setl shiftround
 setl ts=4
 setl sw=4
 setl softtabstop=4

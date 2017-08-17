@@ -2,6 +2,7 @@ setlocal sw=4
 setlocal ts=4
 setlocal softtabstop=4
 setlocal expandtab
+setl shiftround
 "setlocal noai
 setlocal nosi
 setlocal nonumber

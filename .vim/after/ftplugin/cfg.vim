@@ -4,3 +4,4 @@ setlocal softtabstop=4
 setlocal expandtab
 setlocal nosi
 setlocal nonumber
+setl shiftround

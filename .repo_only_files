@@ -3,5 +3,4 @@ post-merge
 post-checkout
 .ropeproject/config.py
 TODO
-.mc.ini.orig
 Romanian_Programmers.keylayout

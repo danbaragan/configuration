@@ -132,5 +132,15 @@ fi
 if [ -f ~/.bashLocalSettings ]; then
 	. ~/.bashLocalSettings
 fi
+
+if [ -f ~/.bash-common.sh ]; then
+    . ~/.bash-common.sh
+    export PATH=${PATH_COMMON}:$GOPATH:/usr/local/bin:${PATH}
+else
+    export PATH=/usr/local/bin:${PATH}
+fi
+
 export TERM=xterm-256color
 eval `dircolors -b ~/.dir_colors`
+
+

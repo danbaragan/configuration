@@ -101,13 +101,16 @@ export TERM=xterm-256color
 export CLICOLOR=1
 export LSCOLORS=ExGxFxDxCxgxdxabafacae
 
-export GOPATH=$HOME/gobin
-export PATH=${HOME}/bin:$GOPATH:${PATH}
 # system vim; not brew...
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 
 PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
 '
-[ -f ~/.bashperlrc ] && . ~/.bashperlrc
+
+if [ -f ~/.bash-common.sh ]; then
+    . ~/.bash-common.sh
+    export PATH=${HOME}/bin:${HOME}/.npm-global/bin:$GOPATH:${PATH}
+fi
+
 [ -f ~/.bashLocalSettings ] && . ~/.bashLocalSettings

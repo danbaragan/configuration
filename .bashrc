@@ -1,5 +1,8 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-[ -f ~/.bashperlrc ] && . ~/.bashperlrc
-export GOPATH=$HOME/gobin
-export PATH=${HOME}/bin:$GOPATH:/usr/local/bin:${PATH}
 
+if [ -f ~/.bash-common.sh ]; then
+    . ~/.bash-common.sh
+    export PATH=${PATH_COMMON}:$GOPATH:/usr/local/bin:${PATH}
+else
+    export PATH=/usr/local/bin:${PATH}
+fi

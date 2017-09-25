@@ -61,6 +61,11 @@ _do_the_ack-grep() {
             src_type_args="--zpt"
             shift
             ;;
+        fg)
+            src_type="go"
+            src_type_args="--go"
+            shift
+            ;;
         fa )
             # search in all files. but see default ignores like dumpfiles
             src_type="all"
@@ -82,6 +87,14 @@ _do_the_ack-grep() {
                         else
                             search_pattern='\bclass\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*'
                         fi
+                        ;;
+                    go )
+                        if [ $wwords -eq 1 ]; then
+                            search_pattern='type\s+'"($4)"'\s+(struct|interface)\b''|\b'"($4)"'\s*:=\s*struct\b'
+                        else
+                            search_pattern='type\s+[\w_]?[\w\d_]*'"($4)"'[\w\d_]*\s+(struct|interface)\b''|[\w_]?[\w\d_]*'"($4)"'[\w\d_]*\s*:=\s*struct\b'
+                        fi
+
                         ;;
                 esac
                 shift
@@ -111,10 +124,18 @@ _do_the_ack-grep() {
                         fi
                         ;;
                     js)
+                        # function x() | x: function
                         if [ $wwords -eq 1 ]; then
-                            search_pattern='\bfunction\s+'"$4"'\s*\('
+                            search_pattern='\bfunction\s+'"$4"'\s*\(''|\b'"$4"':\s+function\s*\('
                         else
-                            search_pattern='\bfunction\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*\s*\('
+                            search_pattern='\bfunction\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*\s*\(''|[\w_]?[\w\d_]*'"$4"'[\w\d_]*:\s*function\s*\('
+                        fi
+                        ;;
+                    go)
+                        if [ $wwoards -eq 1 ]; then
+                            search_pattern='\bfunc\s+'"$4"'\(''|\b'"($4)"'\s*:=\s*func\('
+                        else
+                            search_pattern='\bfunc\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*\(''|[\w_]?[\w\d_]*'"$4"'[\w\d_]*\s*:=\s*func\('
                         fi
                         ;;
                 esac
@@ -123,7 +144,7 @@ _do_the_ack-grep() {
             # this is function call
             f )
                 case "$src_type" in
-                    cc|python|java|js|php )
+                    cc|python|java|js|php|go )
                         if [ $wwords -eq 1 ]; then
                             search_pattern='\b'"$4"'\b\s*\('
                         else
@@ -182,7 +203,7 @@ _do_the_ack-grep() {
         # after shift OR missing entity_type $3 is the pattern
         # test existance of mandatory arg
         if [ -z "$3" ]; then
-                echo "Usage: g[p][w][i] [fc|fp|fr|fjs|fj|fphp|fw] [c|d|f] <regex to match> [<path>...] [<more_options>]"
+                echo "Usage: g[p][w][i] [fc|fp|fr|fj|fja|fphp|fw|fg] [c|d|f] <regex to match> [<path>...] [<more_options>]"
                 return 1
         fi
         search_pattern="$3"
@@ -239,17 +260,17 @@ gpwi() {
 
 # search javascript files, add 'd' arg for function definitions, add 'c' arg for classes
 gj() {
-    _do_the_ack-grep 0 0 fjs "$@"
+    _do_the_ack-grep 0 0 fj "$@"
 }
 # search javascript files - whole words
 gjw() {
-    _do_the_ack-grep 0 1 fjs "$@"
+    _do_the_ack-grep 0 1 fj "$@"
 }
 # search javascript files - case insensitive
 gji() {
-    _do_the_ack-grep 1 0 fjs "$@"
+    _do_the_ack-grep 1 0 fj "$@"
 }
 # search javascript files - whole words and case insensitive
 gjwi() {
-    _do_the_ack-grep 1 1 fjs "$@"
+    _do_the_ack-grep 1 1 fj "$@"
 }

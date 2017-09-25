@@ -110,7 +110,7 @@ PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?
 
 if [ -f ~/.bash-common.sh ]; then
     . ~/.bash-common.sh
-    export PATH=${HOME}/bin:${HOME}/.npm-global/bin:$GOPATH:${PATH}
+    export PATH=${PATH_COMMON}:${PATH}
 fi
 
 [ -f ~/.bashLocalSettings ] && . ~/.bashLocalSettings

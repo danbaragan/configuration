@@ -66,6 +66,11 @@ _do_the_ack-grep() {
             src_type_args="--go"
             shift
             ;;
+        fs )
+            src_type="sol"
+            src_type_args="--sol"
+            shift
+            ;;
         fa )
             # search in all files. but see default ignores like dumpfiles
             src_type="all"
@@ -95,6 +100,13 @@ _do_the_ack-grep() {
                             search_pattern='type\s+[\w_]?[\w\d_]*'"($4)"'[\w\d_]*\s+(struct|interface)\b''|[\w_]?[\w\d_]*'"($4)"'[\w\d_]*\s*:=\s*struct\b'
                         fi
 
+                        ;;
+                    sol )
+                        if [ $wwords -eq 1 ]; then
+                            search_pattern='\bcontract\s+'"$4"'\b'
+                        else
+                            search_pattern='\bcontract\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*'
+                        fi
                         ;;
                 esac
                 shift
@@ -138,13 +150,20 @@ _do_the_ack-grep() {
                             search_pattern='\bfunc\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*\(''|[\w_]?[\w\d_]*'"$4"'[\w\d_]*\s*:=\s*func\('
                         fi
                         ;;
+                    sol)
+                        if [ $wwords -eq 1 ]; then
+                            search_pattern='\bfunction\s+'"$4"'\s*\('
+                        else
+                            search_pattern='\bfunction\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*\s*\('
+                        fi
+                        ;;
                 esac
                 shift
                 ;;
             # this is function call
             f )
                 case "$src_type" in
-                    cc|python|java|js|php|go )
+                    cc|python|java|js|php|go|sol )
                         if [ $wwords -eq 1 ]; then
                             search_pattern='\b'"$4"'\b\s*\('
                         else

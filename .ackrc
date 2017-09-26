@@ -3,6 +3,7 @@
 --type-set=vue:ext:vue
 --type-set=zcml:ext:zcml
 --type-set=zpt:ext:zpt
+--type-set=sol:ext:sol
 --ignore-dir=tests
 --ignore-dir=south_migrations
 --ignore-dir=migrations

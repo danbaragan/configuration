@@ -138,13 +138,13 @@ _do_the_ack-grep() {
                     js)
                         # function x() | x: function
                         if [ $wwords -eq 1 ]; then
-                            search_pattern='\bfunction\s+'"$4"'\s*\(''|\b'"$4"':\s+function\s*\('
+                            search_pattern='\bfunction\*?\s+'"$4"'\s*\(''|\b'"$4"':\s+function\*?\s*\('
                         else
-                            search_pattern='\bfunction\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*\s*\(''|[\w_]?[\w\d_]*'"$4"'[\w\d_]*:\s*function\s*\('
+                            search_pattern='\bfunction\*?\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*\s*\(''|[\w_]?[\w\d_]*'"$4"'[\w\d_]*:\s*function\*?\s*\('
                         fi
                         ;;
                     go)
-                        if [ $wwoards -eq 1 ]; then
+                        if [ $wwords -eq 1 ]; then
                             search_pattern='\bfunc\s+'"$4"'\(''|\b'"($4)"'\s*:=\s*func\('
                         else
                             search_pattern='\bfunc\s+[\w_]?[\w\d_]*'"$4"'[\w\d_]*\(''|[\w_]?[\w\d_]*'"$4"'[\w\d_]*\s*:=\s*func\('

@@ -101,9 +101,8 @@ export TERM=xterm-256color
 export CLICOLOR=1
 export LSCOLORS=ExGxFxDxCxgxdxabafacae
 
-# system vim; not brew...
-export EDITOR=/usr/bin/vim
-export VISUAL=/usr/bin/vim
+export EDITOR=/usr/local/bin/vim
+export VISUAL=/usr/local/bin/vim
 
 PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
 '

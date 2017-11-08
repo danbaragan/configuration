@@ -38,7 +38,7 @@ _do_the_ack-grep() {
             ;;
         fj )
             src_type="js"
-            src_type_args="--js --jsx --vue"
+            src_type_args="--js --jsx --vue --tsx"
             shift
             ;;
         fja )
@@ -46,19 +46,14 @@ _do_the_ack-grep() {
             src_type_args="--java"
             shift
             ;;
-        fphp )
+        fph )
             src_type="php"
             src_type_args="--php"
             shift
             ;;
         fw )
             src_type="web"
-            src_type_args="--css --html --js --json --jsx --vue --actionscript --xml --zpt --zcml --dtml"
-            shift
-            ;;
-        fz )
-            src_type="zpt"
-            src_type_args="--zpt"
+            src_type_args="--css --sass --html --js --json --jsx --vue --tsx --actionscript --xml --tpl --zpt --zcml --dtml --blade"
             shift
             ;;
         fg)
@@ -222,7 +217,7 @@ _do_the_ack-grep() {
         # after shift OR missing entity_type $3 is the pattern
         # test existance of mandatory arg
         if [ -z "$3" ]; then
-                echo "Usage: g[p][w][i] [fc|fp|fr|fj|fja|fphp|fw|fg] [c|d|f] <regex to match> [<path>...] [<more_options>]"
+                echo "Usage: g[p][w][i] [fc|fp|fr|fj|fja|fph|fw|fg|fs|fa] [c|d|f] <regex to match> [<path>...] [<more_options>]"
                 return 1
         fi
         search_pattern="$3"

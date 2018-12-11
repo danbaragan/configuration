@@ -1,0 +1,6 @@
+- make sure you are on the proper git branch. If you need other than the last worked on things will surely break ;-)
+- make sure you have python3 (/usr/bin/env python3 yields a valid python3 interpreter)
+- run ./<repo_dir>/bin/linkConfig.py link <repo_dir>
+- copy post-* files to .git/hooks/
+- create your own ~/.gitconfig_local file and content (email might not be set)
+- open DarkPastel.terminal and then Shell -> Use settings as default (maybe enter terminal settings make a copy of some profile first)

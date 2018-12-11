@@ -1,6 +1,8 @@
 .repo_only_files
+bin/__pycache__
+bin/tests
 post-merge
 post-checkout
-.ropeproject/config.py
+README
 TODO
 .mc.ini.orig

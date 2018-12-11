@@ -1,1 +1,4 @@
 set vertical-split = true
+color cursor default 60 bold
+color title-focus default 61 bold
+color title-blur default 60

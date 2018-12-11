@@ -166,6 +166,9 @@ let &colorcolumn=join(range(121,125),",")
 highlight ColorColumn ctermbg=237 guibg=#2c2d27
 highlight MatchParen  ctermbg=red
 
+"Bracket matching color
+hi MatchParen cterm=bold ctermbg=none ctermfg=yellow
+
 "hi Folded cterm=bold ctermfg=red ctermbg=0
 "hi StatusLine term=bold cterm=bold ctermfg=yellow ctermbg=0
 hi Comment	ctermfg=lightblue

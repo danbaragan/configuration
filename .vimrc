@@ -8,7 +8,10 @@
 "             for Amiga:  s:.vimrc
 "  for MS-DOS and Win32:  $VIM\_vimrc
 "           for OpenVMS:  sys$login:.vimrc
+set encoding=utf-8
+set fileencoding=utf-8
 filetype off
+
 let g:pathogen_disabled = ['jedi-vim']
 "call pathogen#runtime_append_all_bundles()
 call pathogen#infect('bundle/{}')
@@ -98,10 +101,11 @@ map! <C-K> <esc><C-W>k<C-W>_
 map! <C-Up> <esc><C-W>k<C-W>_
 au BufNewFile,BufRead * exe "normal \<C-J>\<C-K>"
 
-map h :tabp<ENTER>
-map l :tabn<ENTER>
-map j :tabp<ENTER>
-map k :tabn<ENTER>
+" These are the characters for Option + hjkl using 'Romanian Programmers.keylayout'
+map ˙ :tabp<ENTER>
+map ł :tabn<ENTER>
+map ∆ :tabp<ENTER>
+map ˚ :tabn<ENTER>
 map <C-H> <C-W>h
 map <C-L> <C-W>l
 
@@ -153,8 +157,8 @@ set tags+=./tags,tags,~/work/naaya/eggs/Zope2-2.12.26-py2.6-linux-x86_64.egg/tag
 " key mapping
 "map <C-j> <C-W>j<C-W>_
 "map <C-k> <C-W>k<C-W>_
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
+nnoremap <C-e> 5<C-e>
+nnoremap <C-y> 5<C-y>
 
 colorscheme elflord
 let &colorcolumn=join(range(121,125),",")

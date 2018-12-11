@@ -181,11 +181,19 @@ map <F6> oimport ipdb; ipdb.set_trace() ### XXX BREAKPOINT<esc>
 map <F7> :PymodeLint<CR>
 map <F8> :sign unplace *<CR>
 map <F9> :TagbarToggle<CR>
-let g:pymode_lint_write = 0
-let g:pymode_syntax_space_errors = 1
-let g:pymode_trim_whitespaces = 0 " do not remove unused whitespaces by default
-let g:pymode_rope_lookup_project = 0
-let g:pymode_rope = 0
+
+"Pymode
+"let g:pymode_python = 'python3'
+"let g:pymode_lint_write = 0
+"let g:pymode_syntax_space_errors = 1
+"let g:pymode_trim_whitespaces = 0 " do not remove unused whitespaces by default
+"let g:pymode_rope_lookup_project = 0
+"let g:pymode_rope = 0
+
+"Syntastic
+let g:syntastic_python_python_exec='/usr/local/bin/python3'
+" use this if syntastic fails to handle some things in python3, like f strings
+"let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["python"] }
 
 map <leader>v :rightbelow vsplit 
 "zpt file type

@@ -40,9 +40,6 @@ set ruler               " show the cursor position all the time
 set showcmd             " display incomplete commands
 set incsearch           " do incremental searching
 
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
-
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
@@ -89,7 +86,6 @@ else
 
 endif " has("autocmd")
 set wmh=0
-"set fc+=r
 map <space> za
 map <C-J> <C-W>j<C-W>_
 map <C-Down> <C-W>j<C-W>_
@@ -124,19 +120,9 @@ fun! ToggleFold()
 	echo
 endfun
 
-
-
-"hi Identifier     term=underline  ctermfg=white ctermbg=black
-"hi Statement      term=bold  ctermfg=2
-"hi Special        term=bold  ctermfg=6 ctermbg=black
-
 set textwidth=120
-"set wrap
 set linebreak
 set bs=2                " allow backspacing over everything in insert mode
-"set ai                 " always set autoindenting on
-set history=50          " keep 50 lines of command line history
-set ruler               " show the cursor position all the time
 set noautoindent
 set ts=4
 set shiftwidth=4
@@ -154,14 +140,11 @@ set hls
 set tags+=./tags,tags,~/work/naaya/eggs/Zope2-2.12.26-py2.6-linux-x86_64.egg/tags,tags;~/work/naaya/
 
 " key mapping
-"map <C-j> <C-W>j<C-W>_
-"map <C-k> <C-W>k<C-W>_
 nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
 
 colorscheme elflord
 let &colorcolumn=join(range(121,125),",")
-"let &colorcolumn="72,".join(range(80,120),",")
 highlight ColorColumn ctermbg=237 guibg=#2c2d27
 highlight MatchParen  ctermbg=red
 
@@ -180,31 +163,18 @@ let g:MultipleSearchTextColorSequence="White,Black,White,Black,Black"
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-"map <leader>j :RopeGotoDefinition<CR>
-"map <leader>r :RopeRename<CR>
 map <F5> oimport IPython; IPython.embed() ### XXX BREAKPOINT<esc>
 map <F6> oimport ipdb; ipdb.set_trace() ### XXX BREAKPOINT<esc>
 map <F7> :PymodeLint<CR>
 map <F8> :sign unplace *<CR>
 map <F9> :TagbarToggle<CR>
 
-"Pymode
-"let g:pymode_python = 'python3'
-"let g:pymode_lint_write = 0
-"let g:pymode_syntax_space_errors = 1
-"let g:pymode_trim_whitespaces = 0 " do not remove unused whitespaces by default
-"let g:pymode_rope_lookup_project = 0
-"let g:pymode_rope = 0
-
-"Syntastic
+" Syntastic
 let g:syntastic_python_python_exec='/usr/local/bin/python3'
 " use this if syntastic fails to handle some things in python3, like f strings
 "let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["python"] }
 
 map <leader>v :rightbelow vsplit 
-"zpt file type
-au BufRead,BufNewFile *.zpt setfiletype xhtml
-au BufRead,BufNewFile *.zcml setfiletype xhtml
 au BufRead * normal zR
 " find a way to put this in ftplugin specific files with no au trigger
 au BufRead *.py normal zM

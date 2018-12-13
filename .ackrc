@@ -9,3 +9,4 @@
 --ignore-dir=.idea
 --ignore-dir=.pycharm_helpers
 --ignore-dir=coverage
+--ignore-dir=__pycache__

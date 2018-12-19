@@ -1,6 +1,9 @@
 .repo_only_files
 bin/__pycache__
+bin/.pytest_cache
 bin/tests
+bin/htmlcov
+bin/.coverage
 post-merge
 post-checkout
 README

@@ -1,5 +1,5 @@
 #!/bin/sh
 
 exec < /dev/tty
-sharedConfig post-merge $GIT_DIR/..
+linkConfig.py -q post-merge $GIT_DIR/..
 

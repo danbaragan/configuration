@@ -4,3 +4,5 @@
 *.pyc
 tags
 .ropeproject/
+.idea/
+.coverage/

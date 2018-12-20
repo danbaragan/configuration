@@ -6,6 +6,7 @@ bin/htmlcov
 bin/.coverage
 post-merge
 post-checkout
+post-commit
 README
 TODO
 .mc.ini.orig

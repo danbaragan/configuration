@@ -94,6 +94,7 @@ gpip3() {
 }
 
 
+export LANG="en_US.UTF-8"
 export LC_COLLATE=C
 export LC_NUMERIC="en_US.UTF-8"
 export TERM=xterm-256color
@@ -106,6 +107,11 @@ export VISUAL=/usr/local/bin/vim
 
 PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
 '
+
+#CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+pyenv virtualenvwrapper
 
 if [ -f ~/.bash-common.sh ]; then
     . ~/.bash-common.sh

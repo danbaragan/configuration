@@ -8,6 +8,9 @@
 "             for Amiga:  s:.vimrc
 "  for MS-DOS and Win32:  $VIM\_vimrc
 "           for OpenVMS:  sys$login:.vimrc
+set encoding=utf-8
+set fileencoding=utf-8
+
 filetype off
 let g:pathogen_disabled = ['jedi-vim']
 "call pathogen#runtime_append_all_bundles()
@@ -153,8 +156,8 @@ set tags+=./tags,tags,~/work/naaya/eggs/Zope2-2.12.26-py2.6-linux-x86_64.egg/tag
 " key mapping
 "map <C-j> <C-W>j<C-W>_
 "map <C-k> <C-W>k<C-W>_
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
+nnoremap <C-e> 5<C-e>
+nnoremap <C-y> 5<C-y>
 
 colorscheme elflord
 let &colorcolumn=join(range(121,125),",")

@@ -13,3 +13,4 @@ if [ -f ~/.ccd-env ]; then
     . ~/.ccd-env
 fi
 #xset b 5 440 50
+xset r rate 250 40

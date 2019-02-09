@@ -12,13 +12,16 @@ import sys
 
 g_args = None
 g_exclude_file_sufixes = ('~','.swp')
-g_exclude_paths = ['.git', '.ropeproject']
+g_exclude_paths = [
+    Path('.git').parts,
+    Path('.ropeproject').parts,
+]
 g_homeDir = Path.home()
 
 
 def _pathname_excluded(rel_path):
-    pathstr = str(rel_path)
-    if any( pathstr.startswith(name) for name in g_exclude_paths ):
+    parts = rel_path.parts
+    if any( parts[:len(path_parts)] == path_parts for path_parts in g_exclude_paths ):
         return True
 
 
@@ -116,7 +119,8 @@ def load_independent(name='.repo_only_files'):
     try:
         with path.open() as f:
             for line in f:
-                g_exclude_paths.append(line.strip())
+                parts = Path(line.strip()).parts
+                g_exclude_paths.append(parts)
     except:
         if not g_args.quiet:
             sys.stderr.write(f"Failed to open {path} for reading\n")

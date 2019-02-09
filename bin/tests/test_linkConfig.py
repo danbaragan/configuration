@@ -17,7 +17,9 @@ g_repo_only_files_expected = (
     "__pycache__",
     "dir2/__pycache__",
 )
-g_exclude_paths = ['.git',]
+g_exclude_paths = [
+    Path('.git').parts,
+]
 g_dirs = (
     Path("dir1/subdir1"),
     Path("dir2"),
@@ -31,7 +33,8 @@ g_files = (
     g_dirs[1] / "dir2_file_to_skip~",
     g_dirs[2] / "__pycache__file_to_skip",
     g_dirs[3] / "dir2__pycache__file_to_skip",
-    g_dirs[4] / ".git_file_to_skip",
+    g_dirs[4] / "file_in_git_to_skip",
+    Path(".gitconfig"),
 )
 
 @pytest.fixture
@@ -73,7 +76,8 @@ class TestLinkConfigMisc:
 
     def test_load_independent(self):
         expected_repo_only_files = copy(g_exclude_paths)
-        expected_repo_only_files.extend(g_repo_only_files_expected)
+        for p in g_repo_only_files_expected:
+            expected_repo_only_files.append(Path(p).parts)
 
         linkConfig.load_independent()
 
@@ -82,6 +86,7 @@ class TestLinkConfigMisc:
     @pytest.mark.parametrize("rel_path, expected_result", [
         (g_files[0], True),                 # normal file
         (g_files[1], True),                 # normal file
+        (g_files[6], True),                 # normal file starting with excluded dir name
         (g_files[2], False),                # normal file with excluded name
         (g_files[3], False),                # normal file inside excluded dir
         (g_files[4], False),                # normal file inside excluded dir/subdir

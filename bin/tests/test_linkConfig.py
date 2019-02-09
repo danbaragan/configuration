@@ -6,7 +6,6 @@ import pytest
 
 from argparse import Namespace
 from copy import copy
-from dataclasses import dataclass
 from pathlib import Path
 import os
 import stat
@@ -54,16 +53,15 @@ def global_vars(monkeypatch, dir_structure):
         quiet=True,
     )
 
-    @dataclass
-    class GlobalVars:
-        g_args: Namespace
-        g_exclude_paths: list
-        g_homeDir: Path = home
-        g_exclude_file_sufixes: tuple = linkConfig.g_exclude_file_sufixes
-
     global_var_names = ("g_args", "g_exclude_file_sufixes", "g_exclude_paths", "g_homeDir",)
     save = {}
-    v = GlobalVars(g_args=args, g_exclude_paths=g_exclude_paths)
+
+    v = Namespace(
+        g_args=args,
+        g_exclude_paths=g_exclude_paths,
+        g_homeDir=home,
+        g_exclude_file_sufixes=linkConfig.g_exclude_file_sufixes,
+    )
 
     for name in global_var_names:
         monkeypatch.setattr(linkConfig, name, getattr(v, name))

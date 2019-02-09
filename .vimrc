@@ -135,7 +135,7 @@ set si
 set incsearch
 set wmh=0
 set hls
-"set mouse=a
+set mouse=a
 
 set tags+=./tags,tags,~/work/naaya/eggs/Zope2-2.12.26-py2.6-linux-x86_64.egg/tags,tags;~/work/naaya/
 

@@ -5,5 +5,5 @@
 tags
 .ropeproject/
 .idea/
-.coverage/
+.coverage
 __pycache__

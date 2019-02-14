@@ -49,8 +49,6 @@ __git_prompt_color() {
 		echo "$Blue"
 	fi
 }
-[ -f ~/.git-prompt.sh ] && . ~/.git-prompt.sh
-[ -f ~/.git-completion.sh ] && . ~/.git-completion.sh
 if [ "$color_prompt" = yes ]; then
 	PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w $(__git_prompt_color)$(__git_ps1 "(%s)")\[\033[01;34m\]\n--- \$\[\033[00m\] '
 else

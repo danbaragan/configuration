@@ -1,4 +1,5 @@
 .repo_only_files
+.gitignore
 bin/__pycache__
 bin/.pytest_cache
 bin/tests

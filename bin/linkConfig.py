@@ -2,7 +2,6 @@
 
 import argparse
 import os
-#import os.path
 from pathlib import Path
 import shutil
 import stat

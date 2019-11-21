@@ -4,3 +4,4 @@ alias dockviz="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock nate
 alias docklog="docker inspect --format='{{.LogPath}}'"
 alias dockvoldang="docker volume ls -f dangling=true"
 alias dockimgdang="docker images -f dangling=true"
+alias tiga="tig --author=Bărăgan"

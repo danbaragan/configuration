@@ -172,7 +172,7 @@ map <F9> :TagbarToggle<CR>
 " Syntastic
 let g:syntastic_python_python_exec='/usr/local/bin/python3'
 " use this if syntastic fails to handle some things in python3, like f strings
-"let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["python"] }
+let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["python"] }
 
 map <leader>v :rightbelow vsplit 
 au BufRead * normal zR

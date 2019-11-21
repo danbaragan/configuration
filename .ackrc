@@ -10,3 +10,4 @@
 --ignore-dir=.pycharm_helpers
 --ignore-dir=coverage
 --ignore-dir=__pycache__
+--ignore-dir=htmlcov

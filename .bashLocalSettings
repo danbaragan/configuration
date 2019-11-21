@@ -1,3 +1,7 @@
 #!/bin/bash
 
+export PROMPT_COMMAND='[[ $PWD == /Users/danbaragan/work/skillvalue/* ]] && export COMPOSE_FILE=dev.yml || unset COMPOSE_FILE'
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 #xset b 5 440 50

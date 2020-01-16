@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if [ -n "$1" ]; then
-	echo "$1"
-else
-	br=`git branch | grep -e'^\* '| cut -d' ' -f2`
-	echo $br...origin/$br
-fi	

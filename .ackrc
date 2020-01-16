@@ -1,6 +1,7 @@
 --type-set=dtml:ext:dtml-doc,dtml-meth
 --type-set=jsx:ext:jsx
 --type-set=vue:ext:vue
+--type-set=ts:ext:ts
 --type-set=zcml:ext:zcml
 --type-set=zpt:ext:zpt
 --ignore-dir=tests

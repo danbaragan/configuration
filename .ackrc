@@ -2,6 +2,7 @@
 --type-set=jsx:ext:jsx
 --type-set=tsx:ext:tsx
 --type-set=vue:ext:vue
+--type-set=ts:ext:ts
 --type-set=zcml:ext:zcml
 --type-set=zpt:ext:zpt
 --type-set=tpl:ext:tpl

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ -n "$1" ]; then
+    range="$1"
+else
+	br=`git branch | grep -e'^\* '| cut -d' ' -f2`
+	range=$br...origin/$br
+fi
+
+git log --oneline --left-right --cherry-mark --boundary $range

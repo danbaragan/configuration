@@ -7,4 +7,4 @@ else
 	range=$br...origin/$br
 fi
 
-git log --oneline --left-right --cherry-mark --boundary $range
+git log --color=always --oneline --left-right --cherry-mark --boundary $range

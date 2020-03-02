@@ -71,14 +71,17 @@ def link(src):
     else:
         subprocess.call(["diff", "-wu", dst_full, src_full])
         print(f"--> {dst_full} will become a hard link of: {src_full}")
-        answer = input("     Are you sure? Link (y), skip (n), yes to link all (a) (y/n/a) ?")
+        answer = input("     Are you sure? link (y), reverse link (r), skip (n), yes to link all (a) (y/r/n/a) ?")
 
     if answer == 'a':
         g_args.quiet = True
         answer = 'y'
 
     # replace homeDir file with file in repo
-    if answer == 'y':
+    if answer in ('y', 'r'):
+        if answer == 'r':
+            dst_full, src_full = src_full, dst_full
+
         # filters and preparations
         if not dst_full.parent.exists():
             dst_full.parent.mkdir(parents=True, exist_ok=True)

@@ -11,6 +11,5 @@ git log \
     --color=always \
     --cherry-mark \
     --boundary \
-    --no-merges \
     --format=format:'%C(bold yellow)%m%C(reset) %C(yellow)%h%C(reset) %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold green)— %an%C(reset)%C(yellow)%d%C(reset)' \
     $range

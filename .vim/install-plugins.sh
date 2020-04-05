@@ -36,7 +36,7 @@ git submodule add https://github.com/editorconfig/editorconfig-vim.git bundle/ed
 git submodule init
 git submodule update
 git submodule foreach git submodule init
-git submodule foreach git submodule update
+git submodule foreach git submodule update --remote
 
 # XXX to remove a submodule
 # git submodule deinit asubmodule

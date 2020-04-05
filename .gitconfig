@@ -17,7 +17,6 @@
 	ll = log --format=%B --reverse HEAD..HEAD@{1}
 [branch]
     autosetuprebase = always
-    autosetupmerge = false
 [merge]
     conflictstyle = diff3
 [svn]

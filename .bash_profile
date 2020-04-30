@@ -109,7 +109,7 @@ export VISUAL=/usr/local/bin/vim
 PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
 '
 
-#CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
+#export CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 pyenv virtualenvwrapper

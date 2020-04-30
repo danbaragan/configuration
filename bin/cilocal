@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+
+import os
+import sys
+
+src_yml = '.circleci/config.yml'
+dst_yml = '.circleci/.local_process.yml'
+env_vars = []
+
+try:
+    with open('.env') as e:
+        for line in e:
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+            line = line.replace('export ', '')
+            if line:
+                env_vars.append('-e')
+                env_vars.append(line)
+except FileNotFoundError:
+    pass
+
+process_yml_cmd = ' '.join(['circleci', 'config', 'process',  src_yml, '>', dst_yml])
+os.system(process_yml_cmd)
+
+execute_local_cmd = ' '.join(['circleci', 'local', 'execute', '-c', dst_yml] + env_vars + sys.argv[1:])
+os.system(execute_local_cmd)
+

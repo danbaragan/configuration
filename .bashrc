@@ -104,10 +104,11 @@ alias apt=aptitude
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+export LANG=en_US.UTF-8
 export LANGUAGE=C
 export LC_ALL=C
 export LC_COLLATE=C
-export LC_NUMERIC="en_US.UTF-8"
+export LC_NUMERIC=en_US.UTF-8
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like

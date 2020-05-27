@@ -38,7 +38,7 @@ _do_the_ack-grep() {
             ;;
         fj )
             src_type="js"
-            src_type_args="--js --ts --jsx --vue --tsx"
+            src_type_args="--js --ts --jsx --vue --tsx --json"
             shift
             ;;
         fja )

@@ -112,9 +112,16 @@ PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?
 '
 
 #export CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-pyenv virtualenvwrapper
+
+if [ -n `which pyenv` ]; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+    pyenv virtualenvwrapper
+fi
+
+if [ -n `which heroku` ]; then
+    eval "$(heroku autocomplete:script bash)"
+fi
 
 if [ -f ~/.bash-common.sh ]; then
     . ~/.bash-common.sh

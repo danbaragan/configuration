@@ -6,4 +6,4 @@ PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?
 # export PROMPT_COMMAND='[[ $PWD == /Users/danbaragan/work/skillvalue/* ]] && export COMPOSE_FILE=dev.yml || unset COMPOSE_FILE'
 
 #xset b 5 440 50
-xset r rate 250 40
+#xset r rate 250 40

@@ -1,7 +1,10 @@
 #!/bin/bash
 # bash settings common between .bash_profile and .bashrc (both needed on mac)
 
+[ -f ~/.git-prompt.sh ] && . ~/.git-prompt.sh
+[ -f ~/.git-completion.sh ] && . ~/.git-completion.sh
 [ -f ~/.bashperlrc ] && . ~/.bashperlrc
+
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim

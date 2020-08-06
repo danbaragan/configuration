@@ -53,7 +53,7 @@ Red="[0;31m[K"
 Green="[0;32m[K"
 Yellow="[0;33mK"
 Blue="[0;34mK"
-. /usr/share/git/completion/git-prompt.sh
+
 __git_prompt_color() {
 	git_status=$(git status 2>&1)
 	if echo $git_status|grep -q -e"Not a git repository"; then
@@ -136,7 +136,7 @@ fi
 
 if [ -f ~/.bash-common.sh ]; then
     . ~/.bash-common.sh
-    export PATH=${PATH_COMMON}:$GOPATH:/usr/local/bin:${PATH}
+    export PATH=${PATH_COMMON}:/usr/local/bin:${PATH}
 else
     export PATH=/usr/local/bin:${PATH}
 fi

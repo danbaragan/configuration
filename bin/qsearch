@@ -9,9 +9,7 @@ fi
 
 shift
 if [ -z "$1" ]; then
-    dir="."
-else
-    dir="$*"
+    set "."
 fi
 
 #smart case
@@ -22,4 +20,4 @@ esac
 
 exclude=".*~|.*\.pyc|\..*\.sw[n-p]|.*/node_modules/.*"
 
-find -E -H $dir -${case_prefix}name "*${file_name_part}*" \! -regex ${exclude} 2>/dev/null
+find -E -H "$@" -${case_prefix}name "*${file_name_part}*" \! -regex ${exclude} 2>/dev/null

@@ -227,15 +227,10 @@ _do_the_ack-grep() {
     fi
 
 
-#test for path
-    if [ -n "$4" ]; then
-        shift 3
-        dir="$*"
-    else
-        dir=""
-    fi
+    # leave only the path args; preserve "long args" with $@
+    shift 3
 
-  ack $icase $src_type_args "$search_pattern" $dir
+  ack $icase $src_type_args "$search_pattern" "$@"
 }
 
 # general alias - search all *known* file types. use 'fa' arg for really all

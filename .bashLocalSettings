@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # pyenv install needs these
-export SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/
-export MACOSX_DEPLOYMENT_TARGET=10.14
+# export SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/
+# export MACOSX_DEPLOYMENT_TARGET=10.14
 
 # export PROMPT_COMMAND='[[ $PWD == /Users/danbaragan/work/skillvalue/* ]] && export COMPOSE_FILE=dev.yml || unset COMPOSE_FILE'
 #xset b 5 440 50

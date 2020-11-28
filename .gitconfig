@@ -12,6 +12,7 @@
 [alias]
     st = status
     co = checkout
+    cp = cherry-pick
     lt = log --graph --format=format:'%C(yellow)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold green)— %an%C(reset)%C(yellow)%d%C(reset)' --abbrev-commit --date=relative
     lta = log --all --graph --format=format:'%C(yellow)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold green)— %an%C(reset)%C(yellow)%d%C(reset)' --abbrev-commit --date=relative
 	ll = log --format=%B --reverse HEAD..HEAD@{1}

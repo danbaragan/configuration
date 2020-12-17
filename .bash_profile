@@ -84,7 +84,7 @@ alias dockimgdang="docker images -f dangling=true"
 export ARCHFLAGS="-arch x86_64"
 export PIP_REQUIRE_VIRTUALENV=true
 export WORKON_HOME=$HOME/.virtualenvs
-[ -f /usr/local/bin/virtualenvwrapper.sh ] && . /usr/local/bin/virtualenvwrapper.sh
+#[ -f /usr/local/bin/virtualenvwrapper.sh ] && . /usr/local/bin/virtualenvwrapper.sh
 
 gpip() {
     PIP_REQUIRE_VIRTUALENV='' pip "$@"
@@ -119,13 +119,15 @@ if [ -n `which pyenv` ]; then
     pyenv virtualenvwrapper
 fi
 
-if [ -n `which heroku` ]; then
-    eval "$(heroku autocomplete:script bash)"
-fi
+[ -f ~/.git-completion.sh ] && . ~/.git-completion.sh
 
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# common settings for login and non-login shell
 if [ -f ~/.bash-common.sh ]; then
     . ~/.bash-common.sh
     export PATH=${PATH_COMMON}:${PATH}
 fi
 
-[ -f ~/.bashLocalSettings ] && . ~/.bashLocalSettings
+[ -f ~/.bash-local-settings ] && . ~/.bash-local-settings

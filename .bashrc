@@ -130,8 +130,8 @@ if [ -f ~/.bash-ack_functions ]; then
 	. ~/.bash-ack_functions
 fi
 
-if [ -f ~/.bashLocalSettings ]; then
-	. ~/.bashLocalSettings
+if [ -f ~/.bash-local-settings ]; then
+	. ~/.bash-local-settings
 fi
 
 if [ -f ~/.bash-common.sh ]; then

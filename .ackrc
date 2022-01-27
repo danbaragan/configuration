@@ -19,3 +19,10 @@
 --ignore-dir=__pycache__
 --ignore-dir=htmlcov
 --ignore-dir=build
+--ignore-dir=.media
+--ignore-dir=.data
+--ignore-dir=.static
+--ignore-dir=.rasters
+--ignore-dir=data
+--ignore-dir=locale
+--ignore-dir=assets

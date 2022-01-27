@@ -178,7 +178,7 @@ let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["python"] }
 map <leader>v :rightbelow vsplit 
 au BufRead * normal zR
 " find a way to put this in ftplugin specific files with no au trigger
-au BufRead *.py normal zM
+au BufRead,BufNewFile *.py normal zM
 
 set fillchars="fold: "
 let g:pymode_run_key = '<F3>'

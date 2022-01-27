@@ -107,6 +107,7 @@ export LSCOLORS=ExGxFxDxCxgxdxabafacae
 
 export EDITOR=/usr/local/bin/vim
 export VISUAL=/usr/local/bin/vim
+export PIPENV_VERBOSITY=-1
 
 PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]
 '
@@ -114,6 +115,9 @@ PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?
 #export CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
 
 if [ -n `which pyenv` ]; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --path)"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
     pyenv virtualenvwrapper

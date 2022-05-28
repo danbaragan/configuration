@@ -54,8 +54,8 @@ export TERM=xterm-256color
 export CLICOLOR=1
 export LSCOLORS=ExGxFxDxCxgxdxabafacae
 
-export EDITOR=/usr/local/bin/vim
-export VISUAL=/usr/local/bin/vim
+export EDITOR=/usr/bin/vim
+export VISUAL=/usr/bin/vim
 export PIPENV_VERBOSITY=-1
 
 PS4='(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]

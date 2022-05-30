@@ -1,5 +1,6 @@
 .repo_only_files
 .gitignore
+Library/
 bin/__pycache__
 bin/.pytest_cache
 bin/tests
@@ -10,6 +11,4 @@ post-checkout
 post-commit
 README
 TODO
-Romanian_Programmers.keylayout
-DarkPastel.terminal
 .DS_Store

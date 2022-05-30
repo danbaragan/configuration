@@ -20,6 +20,8 @@ g_homeDir = Path.home()
 
 def _pathname_excluded(rel_path):
     parts = rel_path.parts
+    # str.statswith in a Path-like complicated fashion...
+    # if ('bin', 'some.inner.dir', 'some.inner.file')[:up_to_len_of_right_side] == ('bin', 'some.inner.dir') we should skip
     if any( parts[:len(path_parts)] == path_parts for path_parts in g_exclude_paths ):
         return True
 

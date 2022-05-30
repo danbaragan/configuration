@@ -3,7 +3,8 @@
 - run ./<repo_dir>/bin/linkConfig.py link <repo_dir>
 - copy post-* files to .git/hooks/
 - create your own ~/.gitconfig_local file and content (email might not be set)
-- open DarkPastel.terminal and then Shell -> Use settings as default (maybe enter terminal settings make a copy of some profile first)
+- open Library/DarkPastel.terminal and then Shell -> Use settings as default (maybe enter terminal settings make a copy of some profile first)
+- manually copy the rest of Library files to their designated locations ~/Library
 
 
 optional:

@@ -110,4 +110,4 @@ export NODE_PATH=${HOME}/.npm-global/lib/node_modules:/usr/local/lib/node_module
 export GOPATH=$HOME/gobin
 export NVM_DIR="$HOME/.nvm"
 
-PATH_COMMON=${HOME}/bin:${HOME}/.npm-global/bin:${GOPATH}/bin:$HOME/.cargo/bin
+PATH_COMMON=${HOME}/bin:${HOME}/.npm-global/bin:${GOPATH}/bin:$HOME/.cargo/bin:/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin

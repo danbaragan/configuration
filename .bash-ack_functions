@@ -180,7 +180,7 @@ _do_the_ack-grep() {
             # normal form: camelcase vs underscore/dash
             n )
                 case "$src_type" in
-                    web )
+                    web|js )
                         normal_form_separator='-'
                         ;;
                     * )

@@ -7,15 +7,15 @@ import os
 g_normal_form_separator = os.environ.get('MYACK_NORMAL_FORM_SEPARATOR', '_')
 
 def normalize(token):
-    camelcase_re = re.compile(r'[a-z]+(?:[A-Z][a-z]+)+')
+    camelcase_re = re.compile(r'(?:[A-Z][a-z]+)+')
     def is_html_token(token):
         return g_normal_form_separator in token
 
     def is_js_token(token):
         if not token:
             return False
-        # normal angularjs token is lowercase
-        if 'a' <= token[0] <= 'z':
+        # normal angularjs token is lowercase, but vue.js may be capitalized
+        if 'a' <= token[0] <= 'z' or 'A' <= token[0] <= 'Z':
             return camelcase_re.match(token)
         return False
 
@@ -27,7 +27,7 @@ def normalize(token):
     elif is_js_token(token):
         camelparts = []
         start = 0
-        i = 0
+        i = 1  # skip the first one since it can be a capital and add a leading '-'
         while i < len(token):
             if 'A' <= token[i] <= 'Z':
                 camelparts.append(token[start:i])

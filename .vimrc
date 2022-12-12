@@ -143,7 +143,7 @@ set tags+=./tags,tags,~/work/naaya/eggs/Zope2-2.12.26-py2.6-linux-x86_64.egg/tag
 nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
 
-colorscheme elflord
+colorscheme slate
 let &colorcolumn=join(range(121,125),",")
 highlight ColorColumn ctermbg=237 guibg=#2c2d27
 highlight MatchParen  ctermbg=red

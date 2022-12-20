@@ -19,7 +19,8 @@ if [ -n `which pyenv` ]; then
     eval "$(pyenv init --path)"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
-    pyenv virtualenvwrapper
+    [ -f /usr/local/bin/virtualenvwrapper.sh ] && . /usr/local/bin/virtualenvwrapper.sh
+    # pyenv virtualenvwrapper
 fi
 
 [ -f ~/.git-completion.sh ] && . ~/.git-completion.sh

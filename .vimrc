@@ -198,3 +198,12 @@ let &t_SR = "\e[4 q"
 let &t_EI = "\e[0 q"
 
 set clipboard=unnamed
+set re=2
+
+if filereadable(".vimrc.local")
+    so .vimrc.local
+else
+    if filereadable("../.vimrc.local")
+         so ../.vimrc.local
+    endif
+endif

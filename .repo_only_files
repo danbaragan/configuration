@@ -9,6 +9,7 @@ bin/.coverage
 post-merge
 post-checkout
 post-commit
+.bash-local-settings.example
 README
 TODO
 .DS_Store

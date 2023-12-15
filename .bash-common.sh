@@ -102,7 +102,7 @@ unset color_prompt
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
 [ -f ~/.bash-ack_functions ] && . ~/.bash-ack_functions
 
-#export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+#export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export NODE_PATH=${HOME}/.npm-global/lib/node_modules:/usr/local/lib/node_modules
 export GOPATH=$HOME/go
 

@@ -5,7 +5,6 @@
 - create your own ~/.gitconfig_local file and content (email might not be set)
 - open Library/DarkPastel.terminal and then Shell -> Use settings as default (maybe enter terminal settings make a copy of some profile first)
 - cp .bash-local-settings.example ~/.bash-local-settings
-- cd ~/Library/LaunchAgent; ln -s ../../com.user.local.keyremap.plist; cd -
 - manually copy the rest of Library files to their designated locations ~/Library
 
 
